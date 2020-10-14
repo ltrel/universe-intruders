@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Program.cs
+// Created on: 2020-10-14
+// Author: Leo Treloar
+
+using System;
 
 namespace UniverseIntruders
 {

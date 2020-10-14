@@ -1,3 +1,7 @@
+// Game.cs
+// Created on: 2020-10-14
+// Author: Leo Treloar
+
 using System;
 using SFML.Audio;
 using SFML.Graphics;
