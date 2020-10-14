@@ -15,8 +15,10 @@ namespace UniverseIntruders {
         const int FPSLimit = 60;
         static VideoMode videoMode = new VideoMode(WindowWidth,WindowHeight);
         static RenderWindow window = new RenderWindow(videoMode,"Universe Intruders");
+        static Game() {
+            window.Closed += OnWindowClose;
+        }
         public static void Run() {
-            CreateEventHandlers();
             while(window.IsOpen) {
                 window.DispatchEvents();
             }
@@ -25,8 +27,5 @@ namespace UniverseIntruders {
         private static void OnWindowClose(object sender, EventArgs eventArgs) {
             window.Close();
         }
-        private static void CreateEventHandlers() {
-            window.Closed += OnWindowClose;
-        } 
     }
 }
