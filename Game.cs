@@ -3,6 +3,7 @@
 // Author: Leo Treloar
 
 using System;
+using System.Collections.Generic;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -15,8 +16,10 @@ namespace UniverseIntruders {
         const int FPSLimit = 60;
         static VideoMode videoMode = new VideoMode(WindowWidth,WindowHeight);
         static RenderWindow window = new RenderWindow(videoMode,"Universe Intruders");
+        public static List<Entity> Entities { get; }
         static Game() {
             window.Closed += OnWindowClose;
+            Entities = new List<Entity>();
         }
         public static void Run() {
             while(window.IsOpen) {
