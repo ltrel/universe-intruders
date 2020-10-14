@@ -7,7 +7,7 @@ using SFML.Window;
 namespace UniverseIntruders {
     static class Game {
         const int WindowWidth = 1280;
-        const int WindowHeight = 720;
+        const int WindowHeight = 800;
         const int FPSLimit = 60;
         static VideoMode videoMode = new VideoMode(WindowWidth,WindowHeight);
         static RenderWindow window = new RenderWindow(videoMode,"Universe Intruders");
