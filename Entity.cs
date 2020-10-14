@@ -12,11 +12,13 @@ namespace UniverseIntruders
 {
     class Entity : Sprite
     {
-        public Entity(Texture texture) : base(texture) {
+        public Entity(Texture texture) : base(texture)
+        {
         }
-        public void Initialize() {
+        public void Initialize()
+        {
             Game.Entities.Add(this);
         }
-        public virtual void Update() {}
+        public virtual void Update() { }
     }
 }

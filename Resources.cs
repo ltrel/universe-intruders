@@ -5,8 +5,10 @@
 using System;
 using SFML.Graphics;
 
-namespace UniverseIntruders {
-    static class Resources {
+namespace UniverseIntruders
+{
+    static class Resources
+    {
         public static Texture Player = new Texture("Resources\\player.png");
     }
 }
