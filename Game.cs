@@ -18,6 +18,7 @@ namespace UniverseIntruders
         const int FPSLimit = 60;
         static VideoMode videoMode = new VideoMode(WindowWidth, WindowHeight);
         static RenderWindow window = new RenderWindow(videoMode, "Universe Intruders");
+        static View windowView = new View(new FloatRect(0f,0f,320f,200f));
         public static List<Entity> Entities { get; }
         static Game()
         {
@@ -29,12 +30,21 @@ namespace UniverseIntruders
             while (window.IsOpen)
             {
                 window.DispatchEvents();
+                RenderFrame();
             }
             return;
         }
         private static void OnWindowClose(object sender, EventArgs eventArgs)
         {
             window.Close();
+        }
+        private static void RenderFrame() {
+            window.Clear(Color.Black);
+            window.SetView(windowView);
+            foreach(Entity entity in Entities) {
+                window.Draw(entity);
+            }
+            window.Display();
         }
     }
 }
