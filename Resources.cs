@@ -9,6 +9,6 @@ namespace UniverseIntruders
 {
     static class Resources
     {
-        public static Texture Player = new Texture("Resources\\player.png");
+        public static Texture Player = new Texture("Resources\\Textures\\player.png");
     }
 }
