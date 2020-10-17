@@ -29,6 +29,7 @@ namespace UniverseIntruders
             window.Closed += OnWindowClose;
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
+            Player player = new Player(windowView);
         }
         public static void Run()
         {
@@ -38,6 +39,7 @@ namespace UniverseIntruders
                 FrameTime = frameTimeClock.ElapsedTime.AsSeconds();
                 frameTimeClock.Restart();
                 window.DispatchEvents();
+                UpdateEntities();
                 RenderFrame();
             }
             return;
@@ -46,13 +48,22 @@ namespace UniverseIntruders
         {
             window.Close();
         }
-        private static void RenderFrame() {
+        private static void RenderFrame()
+        {
             window.Clear(Color.Black);
             window.SetView(windowView);
-            foreach(Entity entity in Entities) {
+            foreach (Entity entity in Entities)
+            {
                 window.Draw(entity);
             }
             window.Display();
+        }
+        private static void UpdateEntities()
+        {
+            foreach (Entity entity in Entities)
+            {
+                entity.Update();
+            }
         }
     }
 }

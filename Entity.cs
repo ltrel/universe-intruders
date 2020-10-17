@@ -12,8 +12,11 @@ namespace UniverseIntruders
 {
     class Entity : Sprite
     {
-        public Entity(Texture texture) : base(texture)
+        protected View targetView;
+
+        public Entity(Texture texture, View targetView) : base(texture)
         {
+            this.targetView = targetView;
         }
         public void Initialize()
         {
