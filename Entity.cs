@@ -18,6 +18,7 @@ namespace UniverseIntruders
         {
             this.targetView = targetView;
         }
+        // The entity won't be rendered or run Update() until this is called
         public void Initialize()
         {
             Game.Entities.Add(this);
