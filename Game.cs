@@ -19,12 +19,13 @@ namespace UniverseIntruders
         static Clock frameTimeClock;
         public static float FrameTime { get; private set; }
         static VideoMode videoMode = new VideoMode(WindowWidth, WindowHeight);
-        static RenderWindow window = new RenderWindow(videoMode, "Universe Intruders");
-        static View windowView = new View(new FloatRect(0f,0f,320f,200f));
+        public static RenderWindow window { get; }
+        static View windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
         public static List<Entity> Entities { get; }
         static Game()
         {
             window = new RenderWindow(videoMode, "Universe Intruders");
+            window.SetFramerateLimit(FPSLimit);
             window.Closed += OnWindowClose;
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
