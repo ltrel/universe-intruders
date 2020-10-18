@@ -26,7 +26,12 @@ namespace UniverseIntruders
         static View windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
         static View gameView = new View(new FloatRect(0f, 0f, 158f, 200f));
 
+        // Entity stuff
         public static List<Entity> Entities { get; }
+        public static Queue<Entity> EntityQueue { get; }
+
+        // Misc stuff
+        public static Random Rand { get; private set; }
 
         static Game()
         {
@@ -37,8 +42,11 @@ namespace UniverseIntruders
             // To start, assume the game is running at full frame rate
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
+            EntityQueue = new Queue<Entity>();
+            Rand = new Random();
             Player player = new Player(gameView);
-            BackgroundTile backgroundTile = new BackgroundTile(gameView);
+            BackgroundTile backgroundTile = new BackgroundTile(gameView, new Vector2f(0f, 0f));
+            backgroundTile.Initialize();
         }
         public static void Run()
         {
@@ -48,7 +56,10 @@ namespace UniverseIntruders
                 // Get the time since the last frame
                 FrameTime = frameTimeClock.ElapsedTime.AsSeconds();
                 frameTimeClock.Restart();
+
                 window.DispatchEvents();
+                AddQueuedEntities();
+                ClearDestroyedEntities();
                 UpdateEntities();
                 RenderFrame();
             }
@@ -75,6 +86,16 @@ namespace UniverseIntruders
             {
                 entity.Update();
             }
+        }
+        private static void AddQueuedEntities()
+        {
+            foreach (Entity entity in EntityQueue) {
+                entity.Initialize();
+            }
+            EntityQueue.Clear();
+        }
+        private static void ClearDestroyedEntities() {
+            Entities.RemoveAll(e => e.EntityDestroyed);
         }
     }
 }

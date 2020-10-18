@@ -13,12 +13,14 @@ namespace UniverseIntruders
     class Entity : Sprite
     {
         public View TargetView { get; protected set; }
+        public bool EntityDestroyed { get; protected set; }
         public int Depth { get; set; }
 
         public Entity(Texture texture, View targetView) : base(texture)
         {
-            Depth = 0;
             this.TargetView = targetView;
+            EntityDestroyed = false;
+            Depth = 0;
         }
         // The entity won't be rendered or run Update() until this is called
         public void Initialize()
