@@ -17,11 +17,11 @@ namespace UniverseIntruders
 
         // This mess is because optional arguments don't work here,
         // the default value of position has to be calcaulted based on targetView
-        public BackgroundTile(View targetView, Vector2f position) : base(Resources.Stars1, targetView)
+        public BackgroundTile(View targetView, Vector2f position) : base(Resources.Textures["stars1"], targetView)
         {
             SetValues(position);
         }
-        public BackgroundTile(View targetView) : base(Resources.Stars1, targetView)
+        public BackgroundTile(View targetView) : base(Resources.Textures["stars1"], targetView)
         {
             SetValues(new Vector2f(0f, 0 - targetView.Size.Y));
         }
@@ -33,16 +33,16 @@ namespace UniverseIntruders
             // Randomly choose one of the textures
             switch(Game.Rand.Next(1, 5)) {
                 case 1:
-                    Texture = Resources.Stars1;
+                    Texture = Resources.Textures["stars1"];
                     break;
                 case 2:
-                    Texture = Resources.Stars2;
+                    Texture = Resources.Textures["stars2"];
                     break;
                 case 3:
-                    Texture = Resources.Stars3;
+                    Texture = Resources.Textures["stars3"];
                     break;
                 case 4:
-                    Texture = Resources.Stars4;
+                    Texture = Resources.Textures["stars4"];
                     break;
             }
         }

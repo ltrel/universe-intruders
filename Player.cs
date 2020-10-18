@@ -14,7 +14,7 @@ namespace UniverseIntruders
     {
         public float MoveSpeed { get; set; }
 
-        public Player(View targetView) : base(Resources.Player, targetView)
+        public Player(View targetView) : base(Resources.Textures["player"], targetView)
         {
             Depth = 0;
             MoveSpeed = 50f;
