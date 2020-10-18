@@ -16,10 +16,11 @@ namespace UniverseIntruders
 
         public Player(View targetView) : base(Resources.Player, targetView)
         {
+            Depth = 0;
             MoveSpeed = 50f;
             // Set position to the horizontal center of the screen near the bottom
-            Position = targetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
-            Position = new Vector2f(Position.X, targetView.Size.Y - 10);
+            Position = TargetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
+            Position = new Vector2f(Position.X, TargetView.Size.Y - 10);
             Game.window.KeyPressed += OnKeyDown;
             Initialize();
         }

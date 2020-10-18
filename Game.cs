@@ -38,6 +38,7 @@ namespace UniverseIntruders
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
             Player player = new Player(gameView);
+            BackgroundTile backgroundTile = new BackgroundTile(gameView);
         }
         public static void Run()
         {
@@ -63,7 +64,7 @@ namespace UniverseIntruders
             window.SetView(windowView);
             foreach (Entity entity in Entities)
             {
-                window.SetView(entity.targetView);
+                window.SetView(entity.TargetView);
                 window.Draw(entity);
             }
             window.Display();

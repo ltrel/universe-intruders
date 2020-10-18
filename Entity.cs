@@ -12,16 +12,19 @@ namespace UniverseIntruders
 {
     class Entity : Sprite
     {
-        public View targetView { get; private set; }
+        public View TargetView { get; protected set; }
+        public int Depth { get; set; }
 
         public Entity(Texture texture, View targetView) : base(texture)
         {
-            this.targetView = targetView;
+            Depth = 0;
+            this.TargetView = targetView;
         }
         // The entity won't be rendered or run Update() until this is called
         public void Initialize()
         {
             Game.Entities.Add(this);
+            Game.Entities.Sort((e1, e2) => {return e2.Depth - e1.Depth;});
         }
         public virtual void Update() { }
     }
