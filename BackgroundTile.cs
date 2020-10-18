@@ -49,13 +49,17 @@ namespace UniverseIntruders
 
         public override void Update()
         {
+            // Move the tile downwards
             Position += new Vector2f(0f, moveSpeed * Game.FrameTime);
+            // If the top of the tile is at or past the top of the screen,
+            // one new tile can be created
             if (Position.Y >= 0 && !nextCreated)
             {
                 BackgroundTile newTile = new BackgroundTile(TargetView);
                 Game.EntityQueue.Enqueue(newTile);
                 nextCreated = true;
             }
+            // If the top of the tile is past the bottom of the screen, destroy it
             if (Position.Y > TargetView.Size.Y)
             {
                 EntityDestroyed = true;
