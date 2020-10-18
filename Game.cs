@@ -58,8 +58,6 @@ namespace UniverseIntruders
                 frameTimeClock.Restart();
 
                 window.DispatchEvents();
-                AddQueuedEntities();
-                ClearDestroyedEntities();
                 UpdateEntities();
                 RenderFrame();
             }
@@ -82,19 +80,16 @@ namespace UniverseIntruders
         }
         private static void UpdateEntities()
         {
+            // Run entity update functions
             foreach (Entity entity in Entities)
             {
                 entity.Update();
             }
-        }
-        private static void AddQueuedEntities()
-        {
-            foreach (Entity entity in EntityQueue) {
-                entity.Initialize();
+            // Add queued entities
+            while (EntityQueue.Count > 0) {
+                EntityQueue.Dequeue().Initialize();
             }
-            EntityQueue.Clear();
-        }
-        private static void ClearDestroyedEntities() {
+            // Remove destroyed entities
             Entities.RemoveAll(e => e.EntityDestroyed);
         }
     }
