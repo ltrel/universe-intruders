@@ -24,6 +24,7 @@ namespace UniverseIntruders
         public static RenderWindow window { get; }
         // Using view with low resolution scales everything up so the small sprites work
         static View windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
+        static View gameView = new View(new FloatRect(0f, 0f, 158f, 200f));
 
         public static List<Entity> Entities { get; }
 
@@ -32,10 +33,11 @@ namespace UniverseIntruders
             window = new RenderWindow(videoMode, "Universe Intruders");
             window.SetFramerateLimit(FPSLimit);
             window.Closed += OnWindowClose;
+            gameView.Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
             // To start, assume the game is running at full frame rate
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
-            Player player = new Player(windowView);
+            Player player = new Player(gameView);
         }
         public static void Run()
         {
@@ -61,6 +63,7 @@ namespace UniverseIntruders
             window.SetView(windowView);
             foreach (Entity entity in Entities)
             {
+                window.SetView(entity.targetView);
                 window.Draw(entity);
             }
             window.Display();
