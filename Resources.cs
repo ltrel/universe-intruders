@@ -19,6 +19,7 @@ namespace UniverseIntruders
             Textures.Add("stars2", new Texture("Resources\\Textures\\stars2.png"));
             Textures.Add("stars3", new Texture("Resources\\Textures\\stars3.png"));
             Textures.Add("stars4", new Texture("Resources\\Textures\\stars4.png"));
+            Textures.Add("borders", new Texture("Resources\\Textures\\borders.png"));
         }
     }
 }
