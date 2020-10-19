@@ -38,9 +38,9 @@ namespace UniverseIntruders
             window = new RenderWindow(videoMode, "Universe Intruders");
             window.SetFramerateLimit(FPSLimit);
             window.Closed += OnWindowClose;
-            gameView.Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
             windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
             gameView = new View(new FloatRect(0f, 0f, 158f, 200f));
+            gameView.Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
             // To start, assume the game is running at full frame rate
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
@@ -49,6 +49,8 @@ namespace UniverseIntruders
             Player player = new Player(gameView);
             BackgroundTile backgroundTile = new BackgroundTile(gameView, new Vector2f(0f, 0f));
             backgroundTile.Initialize();
+            //GameBorder leftBorder = new GameBorder(true);
+            //leftBorder.Initialize();
         }
         public static void Run()
         {
