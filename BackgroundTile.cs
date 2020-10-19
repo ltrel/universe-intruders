@@ -31,7 +31,8 @@ namespace UniverseIntruders
             moveSpeed = 30f;
             Position = position;
             // Randomly choose one of the textures
-            switch(Game.Rand.Next(1, 5)) {
+            switch (Game.Rand.Next(1, 5))
+            {
                 case 1:
                     Texture = Resources.Textures["stars1"];
                     break;
