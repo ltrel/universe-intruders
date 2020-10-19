@@ -36,8 +36,8 @@ namespace UniverseIntruders
             // Confine player to game view
             if (Position.X<0)
                 Position = new Vector2f(0, Position.Y);
-            if (Position.X>TargetView.Size.X)
-                Position = new Vector2f(TargetView.Size.X, Position.Y);
+            if (Position.X+TextureRect.Width>TargetView.Size.X)
+                Position = new Vector2f(TargetView.Size.X-TextureRect.Width, Position.Y);
         }
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
