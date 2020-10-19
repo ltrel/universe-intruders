@@ -23,8 +23,8 @@ namespace UniverseIntruders
         static VideoMode videoMode = new VideoMode(WindowWidth, WindowHeight);
         public static RenderWindow window { get; }
         // Using view with low resolution scales everything up so the small sprites work
-        static View windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
-        static View gameView = new View(new FloatRect(0f, 0f, 158f, 200f));
+        public static View windowView { get; private set; }
+        public static View gameView { get; private set; }
 
         // Entity stuff
         public static List<Entity> Entities { get; }
@@ -39,6 +39,8 @@ namespace UniverseIntruders
             window.SetFramerateLimit(FPSLimit);
             window.Closed += OnWindowClose;
             gameView.Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
+            windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
+            gameView = new View(new FloatRect(0f, 0f, 158f, 200f));
             // To start, assume the game is running at full frame rate
             FrameTime = 1f / FPSLimit;
             Entities = new List<Entity>();
