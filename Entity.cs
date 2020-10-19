@@ -26,6 +26,7 @@ namespace UniverseIntruders
         public void Initialize()
         {
             Game.Entities.Add(this);
+            // Sort the list so that entities with the highest depth values come first
             Game.Entities.Sort((e1, e2) => {return e2.Depth - e1.Depth;});
         }
         public virtual void Update() { }
