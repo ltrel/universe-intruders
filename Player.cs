@@ -33,6 +33,11 @@ namespace UniverseIntruders
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
                 moveVector += new Vector2f(MoveSpeed*Game.FrameTime, 0);
             Position += moveVector;
+            // Confine player to game view
+            if (Position.X<0)
+                Position = new Vector2f(0, Position.Y);
+            if (Position.X>TargetView.Size.X)
+                Position = new Vector2f(TargetView.Size.X, Position.Y);
         }
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
