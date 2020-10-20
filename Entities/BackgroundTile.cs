@@ -23,7 +23,7 @@ namespace UniverseIntruders
         }
         public BackgroundTile(View targetView) : base(Resources.Textures["stars1"], targetView)
         {
-            SetValues(new Vector2f(0f, 0 - targetView.Size.Y));
+            SetValues(new Vector2f(0f, 1 - targetView.Size.Y));
         }
         private void SetValues(Vector2f position)
         {
