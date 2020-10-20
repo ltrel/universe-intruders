@@ -33,7 +33,7 @@ namespace UniverseIntruders
 
             AppIcon = new Image("Resources\\icon.png");
             MenuMusic = new Music("Resources\\Sounds\\menu.ogg");
-            MenuMusic.Volume = 50;
+            MenuMusic.Volume = 10;
             MenuMusic.Loop = true;
         }
     }
