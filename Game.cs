@@ -60,11 +60,13 @@ namespace UniverseIntruders
             Rand = new Random();
             BorderColor = GameBorder.colors[0];
         }
+
         public static void Run()
         {
             MenuSetup();
             //LevelSetup();
             frameTimeClock = new Clock();
+            // Game loop
             while (window.IsOpen)
             {
                 // Get the time since the last frame
@@ -77,9 +79,20 @@ namespace UniverseIntruders
             }
             return;
         }
-        private static void OnWindowClose(object sender, EventArgs eventArgs)
+
+        private static void UpdateEntities()
         {
-            window.Close();
+            // Run entity update functions
+            foreach (Entity entity in Entities)
+            {
+                entity.Update();
+            }
+            // Add queued entities
+            while (EntityQueue.Count > 0) {
+                EntityQueue.Dequeue().Initialize();
+            }
+            // Remove destroyed entities
+            Entities.RemoveAll(e => e.EntityDestroyed);
         }
         private static void RenderFrame()
         {
@@ -96,19 +109,11 @@ namespace UniverseIntruders
             }
             window.Display();
         }
-        private static void UpdateEntities()
+
+        // Events
+        private static void OnWindowClose(object sender, EventArgs eventArgs)
         {
-            // Run entity update functions
-            foreach (Entity entity in Entities)
-            {
-                entity.Update();
-            }
-            // Add queued entities
-            while (EntityQueue.Count > 0) {
-                EntityQueue.Dequeue().Initialize();
-            }
-            // Remove destroyed entities
-            Entities.RemoveAll(e => e.EntityDestroyed);
+            window.Close();
         }
         private static void OnKeyDown(object sender, KeyEventArgs eventArgs) {
             // If the menu is onscreen and space was pressed, start the game
@@ -128,6 +133,8 @@ namespace UniverseIntruders
                 window.Close();
             }
         }
+
+        // Everything past this point is just placing objects and text
         private static void LevelSetup() {
             // Clear everything from the menu
             Texts.Clear();
