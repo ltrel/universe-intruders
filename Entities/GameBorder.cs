@@ -15,10 +15,12 @@ namespace UniverseIntruders {
 
         public GameBorder(bool left) : base(Resources.Textures["borders"], Game.windowView) {
             if(left) {
+                // Use the left half of the texture and place the border at the left edge
                 TextureRect = new IntRect(0, 0, (int)Texture.Size.X/2, (int)Texture.Size.Y);
                 Position = new Vector2f(Game.windowView.Size.X*0.25f-TextureRect.Width, 0);
             }
             else {
+                // Use the right half of the texture and place the border at the right edge
                 TextureRect = new IntRect((int)Texture.Size.X/2, 0, (int)Texture.Size.X/2, (int)Texture.Size.Y);
                 Position = new Vector2f(Game.windowView.Size.X*0.75f, 0);
             }
