@@ -17,7 +17,7 @@ namespace UniverseIntruders
         public Player(View targetView) : base(Resources.Textures["player"], targetView)
         {
             Depth = 0;
-            MoveSpeed = 50f;
+            MoveSpeed = 60f;
             // Set position to the horizontal center of the screen near the bottom
             Position = TargetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
             Position = new Vector2f(Position.X, TargetView.Size.Y - 10);
@@ -41,7 +41,14 @@ namespace UniverseIntruders
         }
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
-
+            switch(keyEventArgs.Code) {
+                // Player shooting
+                case Keyboard.Key.Space:
+                    Vector2f position = Position + new Vector2f(TextureRect.Width/2, -10);
+                    PlayerBullet bullet = new PlayerBullet(position);
+                    Game.EntityQueue.Enqueue(bullet);
+                    break;
+            }
         }
     }
 }

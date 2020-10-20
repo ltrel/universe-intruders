@@ -16,6 +16,8 @@ namespace UniverseIntruders
         // Graphics stuff
         const int WindowWidth = 1280;
         const int WindowHeight = 800;
+        //const int WindowWidth = 1680;
+        //const int WindowHeight = 1050;
         const int FPSLimit = 60;
         static Clock frameTimeClock;
         // Private set means only this class change the value
@@ -39,6 +41,7 @@ namespace UniverseIntruders
             // Window
             window = new RenderWindow(videoMode, "Universe Intruders");
             window.SetFramerateLimit(FPSLimit);
+            window.SetKeyRepeatEnabled(false);
             window.Closed += OnWindowClose;
             // Views
             windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
