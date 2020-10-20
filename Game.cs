@@ -31,10 +31,12 @@ namespace UniverseIntruders
         // Entity stuff
         public static List<Entity> Entities { get; }
         public static Queue<Entity> EntityQueue { get; }
+        public static List<Text> Texts { get; }
 
         // Misc stuff
         public static Random Rand { get; private set; }
         public static Color BorderColor { get; set; }
+        private static bool menu = true;
 
         static Game()
         {
@@ -43,6 +45,7 @@ namespace UniverseIntruders
             window.SetFramerateLimit(FPSLimit);
             window.SetKeyRepeatEnabled(false);
             window.Closed += OnWindowClose;
+            window.KeyPressed += OnKeyDown;
             // Views
             windowView = new View(new FloatRect(0f, 0f, 320f, 200f));
             gameView = new View(new FloatRect(0f, 0f, 158f, 200f));
@@ -52,20 +55,15 @@ namespace UniverseIntruders
             // Entities
             Entities = new List<Entity>();
             EntityQueue = new Queue<Entity>();
+            Texts = new List<Text>();
             // Misc
             Rand = new Random();
             BorderColor = GameBorder.colors[0];
-            // Level
-            Player player = new Player(gameView);
-            BackgroundTile backgroundTile = new BackgroundTile(gameView, new Vector2f(0f, 0f));
-            backgroundTile.Initialize();
-            GameBorder leftBorder = new GameBorder(true);
-            GameBorder rightBorder = new GameBorder(false);
-            leftBorder.Initialize();
-            rightBorder.Initialize();
         }
         public static void Run()
         {
+            MenuSetup();
+            //LevelSetup();
             frameTimeClock = new Clock();
             while (window.IsOpen)
             {
@@ -83,6 +81,18 @@ namespace UniverseIntruders
         {
             window.Close();
         }
+        private static void OnKeyDown(object sender, KeyEventArgs eventArgs) {
+            // If the menu is onscreen and space was pressed, start the game
+            if(menu && eventArgs.Code == Keyboard.Key.Space) {
+                menu = false;
+                LevelSetup();
+            }
+            // If the menu is onscreen and q was pressed, close the program
+            if(menu && eventArgs.Code == Keyboard.Key.Q) {
+                menu = false;
+                window.Close();
+            }
+        }
         private static void RenderFrame()
         {
             window.Clear(Color.Black);
@@ -91,6 +101,10 @@ namespace UniverseIntruders
             {
                 window.SetView(entity.TargetView);
                 window.Draw(entity);
+            }
+            foreach (Text text in Texts) {
+                window.SetView(window.DefaultView);
+                window.Draw(text);
             }
             window.Display();
         }
@@ -107,6 +121,30 @@ namespace UniverseIntruders
             }
             // Remove destroyed entities
             Entities.RemoveAll(e => e.EntityDestroyed);
+        }
+        private static void LevelSetup() {
+            // Clear everything from the menu
+            Texts.Clear();
+            Entities.Clear();
+
+            Player player = new Player(gameView);
+            BackgroundTile backgroundTile = new BackgroundTile(gameView, new Vector2f(0f, 0f));
+            backgroundTile.Initialize();
+            GameBorder leftBorder = new GameBorder(true);
+            GameBorder rightBorder = new GameBorder(false);
+            leftBorder.Initialize();
+            rightBorder.Initialize();
+        }
+        private static void MenuSetup() {
+            Text title = new Text();
+            title.Font = Resources.Fonts["ibmbios"];
+            title.DisplayedString = "Universe Intruders";
+            title.CharacterSize = 50;
+            title.FillColor = Color.White;
+            title.Position = new Vector2f(
+                window.DefaultView.Size.X / 2 - title.GetLocalBounds().Width/2,
+                window.DefaultView.Size.Y / 2 - title.GetLocalBounds().Height/2);
+            Texts.Add(title);
         }
     }
 }
