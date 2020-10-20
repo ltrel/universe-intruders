@@ -153,6 +153,7 @@ namespace UniverseIntruders
             rightBorder.Initialize();
         }
         private static void MenuSetup() {
+            Resources.MenuMusic.Play();
             Entity background = new Entity(Resources.Textures["menubackground"], windowView);
             background.Depth = 1;
             background.Initialize();

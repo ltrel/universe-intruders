@@ -4,6 +4,7 @@
 
 using System;
 using SFML.Graphics;
+using SFML.Audio;
 using System.Collections.Generic;
 
 namespace UniverseIntruders
@@ -14,6 +15,7 @@ namespace UniverseIntruders
         public static Dictionary<string, Font> Fonts { get; }
 
         public static Image AppIcon { get; }
+        public static Music MenuMusic { get; }
 
         static Resources() {
             Textures = new Dictionary<string, Texture>();
@@ -30,6 +32,9 @@ namespace UniverseIntruders
             Fonts.Add("ibmbios", new Font("Resources\\Fonts\\Ac437_IBM_BIOS.ttf"));
 
             AppIcon = new Image("Resources\\icon.png");
+            MenuMusic = new Music("Resources\\Sounds\\menu.ogg");
+            MenuMusic.Volume = 50;
+            MenuMusic.Loop = true;
         }
     }
 }
