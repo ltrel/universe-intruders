@@ -13,6 +13,8 @@ namespace UniverseIntruders
         public static Dictionary<string, Texture> Textures { get; }
         public static Dictionary<string, Font> Fonts { get; }
 
+        public static Image AppIcon { get; }
+
         static Resources() {
             Textures = new Dictionary<string, Texture>();
             Textures.Add("player", new Texture("Resources\\Textures\\player.png"));
@@ -26,6 +28,8 @@ namespace UniverseIntruders
 
             Fonts = new Dictionary<string, Font>();
             Fonts.Add("ibmbios", new Font("Resources\\Fonts\\Ac437_IBM_BIOS.ttf"));
+
+            AppIcon = new Image("Resources\\icon.png");
         }
     }
 }

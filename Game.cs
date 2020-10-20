@@ -42,6 +42,7 @@ namespace UniverseIntruders
         {
             // Window
             window = new RenderWindow(videoMode, "Universe Intruders");
+            window.SetIcon(Resources.AppIcon.Size.X, Resources.AppIcon.Size.Y, Resources.AppIcon.Pixels);
             window.SetFramerateLimit(FPSLimit);
             window.SetKeyRepeatEnabled(false);
             window.Closed += OnWindowClose;
