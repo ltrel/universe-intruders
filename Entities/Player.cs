@@ -17,7 +17,7 @@ namespace UniverseIntruders
         private Clock shootClock;
         private int shootTime = 500;
 
-        public Player(View targetView) : base(Resources.Textures["player"], targetView)
+        public Player() : base(Resources.Textures["player"], Game.gameView)
         {
             Depth = 0;
             MoveSpeed = 60f;

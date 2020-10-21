@@ -158,7 +158,7 @@ namespace UniverseIntruders
             background.Depth = 20;
             background.Initialize();
 
-            Player player = new Player(gameView);
+            Player player = new Player();
             BackgroundTile backgroundTile = new BackgroundTile(gameView, new Vector2f(0f, 0f));
             backgroundTile.Initialize();
             GameBorder leftBorder = new GameBorder(true);
