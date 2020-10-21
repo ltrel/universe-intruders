@@ -22,6 +22,9 @@ namespace UniverseIntruders
             Position = TargetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
             Position = new Vector2f(Position.X, TargetView.Size.Y - 10);
             Game.window.KeyPressed += OnKeyDown;
+            // Just use the bottom two rows of pixels for collision detection
+            SetDefaultCollider();
+            CollisionRect = new IntRect(CollisionRect.Left, CollisionRect.Top+3, CollisionRect.Width, 2);
             Initialize();
         }
         public override void Update()

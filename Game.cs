@@ -37,6 +37,7 @@ namespace UniverseIntruders
         public static Random Rand { get; private set; }
         public static Color BorderColor { get; set; }
         private static bool menu = true;
+        private static bool debug = false;
 
         static Game()
         {
@@ -103,6 +104,17 @@ namespace UniverseIntruders
             {
                 window.SetView(entity.TargetView);
                 window.Draw(entity);
+
+                // If the debug mode is on and the entity has a collider, show it with a rectangle
+                if (debug && entity.CollisionRect != null) {
+                RectangleShape collider = new RectangleShape();
+                collider.Size = new Vector2f(entity.GetCollisionBounds().Width, entity.GetCollisionBounds().Height);
+                collider.Position = new Vector2f(entity.GetCollisionBounds().Left, entity.GetCollisionBounds().Top);
+                collider.FillColor = Color.Transparent;
+                collider.OutlineThickness = 0.25f;
+                collider.OutlineColor = Color.Cyan;
+                window.Draw(collider);
+                }
             }
             foreach (Text text in Texts) {
                 window.SetView(window.DefaultView);
@@ -133,6 +145,8 @@ namespace UniverseIntruders
                 menu = false;
                 window.Close();
             }
+            // Toggle the debug view with f12
+            if(eventArgs.Code == Keyboard.Key.F12) debug = !debug;
         }
 
         // Everything past this point is just placing objects and text
