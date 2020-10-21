@@ -24,7 +24,7 @@ namespace UniverseIntruders
             Depth = 0;
         }
         // The entity won't be rendered or run Update() until this is called
-        public void Initialize()
+        public virtual void Initialize()
         {
             Game.Entities.Add(this);
             // Sort the list so that entities with the highest depth values come first

@@ -14,6 +14,9 @@ namespace UniverseIntruders
     {
         public float MoveSpeed { get; set; }
 
+        private Clock shootClock;
+        private int shootTime = 500;
+
         public Player(View targetView) : base(Resources.Textures["player"], targetView)
         {
             Depth = 0;
@@ -26,6 +29,11 @@ namespace UniverseIntruders
             SetDefaultCollider();
             CollisionRect = new IntRect(CollisionRect.Left, CollisionRect.Top+3, CollisionRect.Width, 2);
             Initialize();
+        }
+        public override void Initialize()
+        {
+            shootClock = new Clock();
+            base.Initialize();
         }
         public override void Update()
         {
@@ -47,9 +55,12 @@ namespace UniverseIntruders
             switch(keyEventArgs.Code) {
                 // Player shooting
                 case Keyboard.Key.Space:
-                    Vector2f position = Position + new Vector2f(TextureRect.Width/2, -10);
-                    PlayerBullet bullet = new PlayerBullet(position);
-                    Game.EntityQueue.Enqueue(bullet);
+                    if(shootClock.ElapsedTime.AsMilliseconds() >= shootTime) {
+                        Vector2f position = Position + new Vector2f(TextureRect.Width/2, -10);
+                        PlayerBullet bullet = new PlayerBullet(position);
+                        Game.EntityQueue.Enqueue(bullet);
+                        shootClock.Restart();
+                    }
                     break;
             }
         }
