@@ -126,6 +126,7 @@ namespace UniverseIntruders
         // Events
         private static void OnWindowClose(object sender, EventArgs eventArgs)
         {
+            Resources.SoundCleanup();
             window.Close();
         }
         private static void OnKeyDown(object sender, KeyEventArgs eventArgs) {

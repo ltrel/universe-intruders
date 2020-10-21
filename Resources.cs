@@ -36,5 +36,9 @@ namespace UniverseIntruders
             MenuMusic.Volume = 10;
             MenuMusic.Loop = true;
         }
+
+        public static void SoundCleanup() {
+            MenuMusic.Dispose();
+        }
     }
 }
