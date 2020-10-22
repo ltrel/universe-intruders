@@ -20,6 +20,7 @@ namespace UniverseIntruders
         protected Vector2f currentDestination { get; set; }
         public int MoveDelay { get; set; }
         private Clock moveClock;
+        private bool isMoving = true;
 
         protected Vector2f startPosition { get; }
         private bool reachedStartPosition = false;
@@ -28,12 +29,12 @@ namespace UniverseIntruders
         private Clock shootClock;
 
         // Note: the CENTER of the sprite will end up at the start position
-        public Enemy(Vector2f startPosition) : base(Resources.Textures["player"], Game.gameView)
+        public Enemy(Vector2f startPosition) : base(Resources.Textures["enemy"], Game.gameView)
         {
             MoveSpeed = 20f;
             Movements = new List<Vector2f>();
             movementIndex = 0;
-            MoveDelay = 0;
+            MoveDelay = 500;
             LoopMovements = true;
 
             // Offset slightly for center of sprite
@@ -59,6 +60,8 @@ namespace UniverseIntruders
             {
                 currentDestination = startPosition + Movements[movementIndex];
             }
+            else currentDestination = startPosition;
+            moveClock = new Clock();
             base.Initialize();
         }
 
@@ -72,21 +75,27 @@ namespace UniverseIntruders
             }
             // Take a step towards the current destination, if already there
             // run everything inside the if statement
-            if (StepTowards(currentDestination))
+            if (isMoving)
             {
-                // If there is another movement left in the list, set the destination to that
-                if (movementIndex < Movements.Count - 1)
-                    currentDestination = Position + Movements[++movementIndex];
-                // If there isn't another movement but looping is on, go back to the first movement
-                else if (LoopMovements && Movements.Count > 0)
+                if (StepTowards(currentDestination))
                 {
-                    movementIndex = 0;
-                    currentDestination = Position + Movements[0];
+                    isMoving = false;
+                    moveClock.Restart();
+                    // If there is another movement left in the list, set the destination to that
+                    if (movementIndex < Movements.Count - 1)
+                        currentDestination = Position + Movements[++movementIndex];
+                    // If there isn't another movement but looping is on, go back to the first movement
+                    else if (LoopMovements && Movements.Count > 0)
+                    {
+                        movementIndex = 0;
+                        currentDestination = Position + Movements[0];
+                    }
+                    // If loop is off, the enemy will remain at it's last destination
+                    // and the two if statements above will continue
+                    // wasting cpu instructions for all eternity
                 }
-                // If loop is off, the enemy will remain at it's last destination
-                // and the two if statements above will continue
-                // wasting cpu instructions for all eternity
             }
+            else if (moveClock.ElapsedTime.AsMilliseconds() >= MoveDelay) isMoving = true;
         }
 
         // https://www.desmos.com/calculator/llcv91zhfi

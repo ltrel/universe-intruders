@@ -21,6 +21,7 @@ namespace UniverseIntruders
             Textures = new Dictionary<string, Texture>();
             Textures.Add("player", new Texture("Resources\\Textures\\player.png"));
             Textures.Add("playerbullet", new Texture("Resources\\Textures\\playerbullet.png"));
+            Textures.Add("enemy", new Texture("Resources\\Textures\\enemy.png"));
             Textures.Add("stars1", new Texture("Resources\\Textures\\stars1.png"));
             Textures.Add("stars2", new Texture("Resources\\Textures\\stars2.png"));
             Textures.Add("stars3", new Texture("Resources\\Textures\\stars3.png"));
