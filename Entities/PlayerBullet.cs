@@ -14,6 +14,7 @@ namespace UniverseIntruders {
         public float MoveSpeed { get; set; }
 
         public PlayerBullet(Vector2f position) : base(Resources.Textures["playerbullet"], Game.gameView) {
+            Depth = 1;
             MoveSpeed = 200f;
             Position = position;
         }

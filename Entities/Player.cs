@@ -15,7 +15,7 @@ namespace UniverseIntruders
         public float MoveSpeed { get; set; }
 
         private Clock shootClock;
-        private int shootTime = 500;
+        private int shootTime = 400;
 
         public Player() : base(Resources.Textures["player"], Game.gameView)
         {
