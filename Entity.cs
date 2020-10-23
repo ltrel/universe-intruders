@@ -14,6 +14,7 @@ namespace UniverseIntruders
     {
         public View TargetView { get; protected set; }
         public IntRect CollisionRect { get; set; }
+        public CollisionTag CollisionTag { get; set; }
         public bool EntityDestroyed { get; protected set; }
         public int Depth { get; set; }
 

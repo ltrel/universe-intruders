@@ -11,6 +11,14 @@ using SFML.Window;
 
 namespace UniverseIntruders
 {
+    enum CollisionTag {
+        None,
+        Player,
+        PlayerBullet,
+        Enemy,
+        EnemyBullet
+    }
+
     static class Collision
     {
         public static bool IsPointInRect(Vector2f point, FloatRect rect)
