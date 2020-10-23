@@ -18,14 +18,13 @@ namespace UniverseIntruders
 
         public EnemyRandom(Vector2f startPosition) : base(startPosition)
         {
-            movementBounds = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y);
+            movementBounds = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y-30);
         }
 
         protected override void SetNextDestination()
         {
             Vector2f newDestination;
 
-            // TODO: change end condition to if destination is within movementBounds
             do
             {
                 double angle = Game.Rand.NextDouble() * 360;
@@ -35,7 +34,7 @@ namespace UniverseIntruders
                     distance * (float)Math.Sin(angle)
                 );
                 newDestination = Position + step;
-            } while (false);
+            } while (!Collision.IsPointInRect(newDestination, movementBounds));
             currentDestination = newDestination;
         }
     }
