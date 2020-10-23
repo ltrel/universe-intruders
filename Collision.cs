@@ -28,5 +28,14 @@ namespace UniverseIntruders
                 point.Y >= rect.Top &&
                 point.Y <= rect.Top + rect.Height);
         }
+
+        // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+        public static bool IsRectInRect(FloatRect r1, FloatRect r2)
+        {
+            return (r1.Left <= r2.Left + r2.Width &&
+                r1.Left + r1.Width >= r2.Left &&
+                r1.Top <= r2.Top + r2.Height &&
+                r1.Top + r1.Height >= r2.Top);
+        }
     }
 }
