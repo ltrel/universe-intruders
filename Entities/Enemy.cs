@@ -19,14 +19,14 @@ namespace UniverseIntruders
         protected int movementIndex { get; set; }
         protected Vector2f currentDestination { get; set; }
         public int MoveDelay { get; set; }
-        private Clock moveClock;
-        private bool isMoving = true;
+        protected Clock moveClock;
+        protected bool isMoving = true;
 
         protected Vector2f startPosition { get; }
-        private bool reachedStartPosition = false;
+        protected bool reachedStartPosition = false;
 
         public int shootDelay { get; set; }
-        private Clock shootClock;
+        protected Clock shootClock;
 
         // Note: the CENTER of the sprite will end up at the start position
         public Enemy(Vector2f startPosition) : base(Resources.Textures["enemy"], Game.gameView)
@@ -81,18 +81,7 @@ namespace UniverseIntruders
                 {
                     isMoving = false;
                     moveClock.Restart();
-                    // If there is another movement left in the list, set the destination to that
-                    if (movementIndex < Movements.Count - 1)
-                        currentDestination = Position + Movements[++movementIndex];
-                    // If there isn't another movement but looping is on, go back to the first movement
-                    else if (LoopMovements && Movements.Count > 0)
-                    {
-                        movementIndex = 0;
-                        currentDestination = Position + Movements[0];
-                    }
-                    // If loop is off, the enemy will remain at it's last destination
-                    // and the two if statements above will continue
-                    // wasting cpu instructions for all eternity
+                    SetNextDestination();
                 }
             }
             else if (moveClock.ElapsedTime.AsMilliseconds() >= MoveDelay) isMoving = true;
@@ -122,6 +111,21 @@ namespace UniverseIntruders
             }
 
             return Position == destination;
+        }
+
+        protected virtual void SetNextDestination() {
+            // If there is another movement left in the list, set the destination to that
+            if (movementIndex < Movements.Count - 1)
+                currentDestination = Position + Movements[++movementIndex];
+            // If there isn't another movement but looping is on, go back to the first movement
+            else if (LoopMovements && Movements.Count > 0)
+            {
+                movementIndex = 0;
+                currentDestination = Position + Movements[0];
+            }
+            // If loop is off, the enemy will remain at it's last destination
+            // and the two if statements above will continue
+            // wasting cpu instructions for all eternity
         }
     }
 }
