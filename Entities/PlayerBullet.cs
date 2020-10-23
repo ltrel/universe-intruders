@@ -15,12 +15,16 @@ namespace UniverseIntruders {
 
         public PlayerBullet(Vector2f position) : base(Resources.Textures["playerbullet"], Game.gameView) {
             Depth = 1;
-            MoveSpeed = 200f;
+            MoveSpeed = 210f;
             Position = position;
+            SetDefaultCollider();
+            CollisionTag = CollisionTag.PlayerBullet;
         }
         public override void Update()
         {
             Position += new Vector2f(0, -MoveSpeed*Game.FrameTime);
+            if(CollisionWithTag(CollisionTag.Enemy) != null)
+                Console.WriteLine("Bullet is colliding with enemy");
             // If bullet is off screen destroy it
             if (Position.Y-TextureRect.Height > TargetView.Size.Y)
                 EntityDestroyed = true;

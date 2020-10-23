@@ -3,6 +3,7 @@
 // Author: Leo Treloar
 
 using System;
+using System.Collections.Generic;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -29,12 +30,13 @@ namespace UniverseIntruders
         {
             Game.Entities.Add(this);
             // Sort the list so that entities with the highest depth values come first
-            Game.Entities.Sort((e1, e2) => {return e2.Depth - e1.Depth;});
+            Game.Entities.Sort((e1, e2) => { return e2.Depth - e1.Depth; });
         }
         public virtual void Update() { }
 
         // Calculate the bounding box of the collider in global coordinates
-        public FloatRect GetCollisionBounds() {
+        public FloatRect GetCollisionBounds()
+        {
             FloatRect globalBounds = GetGlobalBounds();
             FloatRect collisionBounds = new FloatRect();
             collisionBounds.Top = globalBounds.Top + CollisionRect.Top;
@@ -46,5 +48,17 @@ namespace UniverseIntruders
 
         // Use the entire bounding rectangle of the sprite for collisions
         protected void SetDefaultCollider() { CollisionRect = (IntRect)GetLocalBounds(); }
+
+        protected Entity CollisionWithTag(CollisionTag tag)
+        {
+            List<Entity> entities = Game.Entities.FindAll(e => e.CollisionTag == tag);
+            Entity collidingEntity = null;
+            foreach (Entity entity in entities)
+            {
+                if (Collision.IsRectInRect(this.GetCollisionBounds(), entity.GetCollisionBounds()))
+                    collidingEntity = entity;
+            }
+            return collidingEntity;
+        }
     }
 }

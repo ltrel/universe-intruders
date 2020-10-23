@@ -31,7 +31,9 @@ namespace UniverseIntruders
         // Note: the CENTER of the sprite will end up at the start position
         public Enemy(Vector2f startPosition) : base(Resources.Textures["enemy"], Game.gameView)
         {
-            MoveSpeed = 20f;
+            CollisionTag = CollisionTag.Enemy;
+            SetDefaultCollider();
+            MoveSpeed = 25f;
             Movements = new List<Vector2f>();
             movementIndex = 0;
             MoveDelay = 500;
