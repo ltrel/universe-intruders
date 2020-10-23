@@ -72,6 +72,7 @@ namespace UniverseIntruders
             while (window.IsOpen)
             {
                 // Get the time since the last frame
+                // Comment this out if debugging
                 FrameTime = frameTimeClock.ElapsedTime.AsSeconds();
                 frameTimeClock.Restart();
 
@@ -155,6 +156,8 @@ namespace UniverseIntruders
             // Clear everything from the menu
             Texts.Clear();
             Entities.Clear();
+            Resources.MenuMusic.Stop();
+
             Entity background = new Entity(Resources.Textures["menubackground"], windowView);
             background.Depth = 20;
             background.Initialize();
