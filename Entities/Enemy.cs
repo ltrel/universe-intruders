@@ -113,7 +113,8 @@ namespace UniverseIntruders
             return Position == destination;
         }
 
-        protected virtual void SetNextDestination() {
+        protected virtual void SetNextDestination()
+        {
             // If there is another movement left in the list, set the destination to that
             if (movementIndex < Movements.Count - 1)
                 currentDestination = Position + Movements[++movementIndex];
