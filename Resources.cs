@@ -18,6 +18,7 @@ namespace UniverseIntruders
 
         public static Image AppIcon { get; }
         public static Music MenuMusic { get; }
+        public static Music GameMusic { get; }
 
         static Resources() {
             string baseDir = Environment.CurrentDirectory;
@@ -52,9 +53,11 @@ namespace UniverseIntruders
             Listener.GlobalVolume = 20;
 
             Directory.SetCurrentDirectory(resourceDir);
-            AppIcon = new Image("icon.png");
             MenuMusic = new Music("Sounds\\menu.ogg");
             MenuMusic.Loop = true;
+            GameMusic = new Music("Sounds\\music.ogg");
+            GameMusic.Loop = true;
+            AppIcon = new Image("icon.png");
             
             // Move back to the starting directory when finished
             Directory.SetCurrentDirectory(baseDir);

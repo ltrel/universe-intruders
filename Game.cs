@@ -159,6 +159,7 @@ namespace UniverseIntruders
             Entities.Clear();
             Resources.MenuMusic.Stop();
 
+            Resources.GameMusic.Play();
             Entity background = new Entity(Resources.Textures["menubackground"], windowView);
             background.Depth = 20;
             background.Initialize();
