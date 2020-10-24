@@ -3,6 +3,7 @@
 // Author: Leo Treloar
 
 using System;
+using System.IO;
 using SFML.Graphics;
 using SFML.Audio;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace UniverseIntruders
     {
         public static Dictionary<string, Texture> Textures { get; }
         public static Dictionary<string, Font> Fonts { get; }
+        public static Dictionary<string, SoundBuffer> Sounds { get; }
 
         public static Image AppIcon { get; }
         public static Music MenuMusic { get; }
@@ -31,6 +33,9 @@ namespace UniverseIntruders
 
             Fonts = new Dictionary<string, Font>();
             Fonts.Add("ibmbios", new Font("Resources\\Fonts\\Ac437_IBM_BIOS.ttf"));
+
+            Sounds = new Dictionary<string, SoundBuffer>();
+            Sounds.Add("playershoot", new SoundBuffer("Resources\\Sound\\shoot.ogg"));
 
             AppIcon = new Image("Resources\\icon.png");
             MenuMusic = new Music("Resources\\Sounds\\menu.ogg");
