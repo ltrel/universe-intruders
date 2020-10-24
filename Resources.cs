@@ -23,8 +23,10 @@ namespace UniverseIntruders
             string baseDir = Environment.CurrentDirectory;
             string resourceDir = Path.Join(baseDir, "Resources");
 
+            // Move into the relevant directory
             Directory.SetCurrentDirectory(Path.Join(resourceDir, "Textures"));
             Textures = new Dictionary<string, Texture>();
+            // Add everything to the dictionary
             Textures.Add("player", new Texture("player.png"));
             Textures.Add("playerbullet", new Texture("playerbullet.png"));
             Textures.Add("enemy", new Texture("enemy.png"));
@@ -35,6 +37,7 @@ namespace UniverseIntruders
             Textures.Add("borders", new Texture("borders.png"));
             Textures.Add("menubackground", new Texture("menubackground.png"));
 
+            // Repeat for everything else
             Directory.SetCurrentDirectory(Path.Join(resourceDir, "Fonts"));
             Fonts = new Dictionary<string, Font>();
             Fonts.Add("ibmbios", new Font("Ac437_IBM_BIOS.ttf"));
@@ -42,12 +45,19 @@ namespace UniverseIntruders
             Directory.SetCurrentDirectory(Path.Join(resourceDir, "Sounds"));
             Sounds = new Dictionary<string, SoundBuffer>();
             Sounds.Add("playershoot", new SoundBuffer("shoot.ogg"));
+            Sounds.Add("enemyshoot", new SoundBuffer("enemyshoot.ogg"));
+            Sounds.Add("destroyed", new SoundBuffer("destroyed.ogg"));
 
-            Directory.SetCurrentDirectory(baseDir);
-            AppIcon = new Image("Resources\\icon.png");
-            MenuMusic = new Music("Resources\\Sounds\\menu.ogg");
-            MenuMusic.Volume = 10;
+            // Set sound volume globally
+            Listener.GlobalVolume = 20;
+
+            Directory.SetCurrentDirectory(resourceDir);
+            AppIcon = new Image("icon.png");
+            MenuMusic = new Music("Sounds\\menu.ogg");
             MenuMusic.Loop = true;
+            
+            // Move back to the starting directory when finished
+            Directory.SetCurrentDirectory(baseDir);
         }
 
         public static void SoundCleanup() {
