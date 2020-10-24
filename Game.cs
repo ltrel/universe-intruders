@@ -146,6 +146,7 @@ namespace UniverseIntruders
             // If the menu is onscreen and q was pressed, close the program
             if(menu && eventArgs.Code == Keyboard.Key.Q) {
                 menu = false;
+                Resources.SoundCleanup();
                 window.Close();
             }
             // Toggle the debug view with f12

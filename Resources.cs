@@ -65,6 +65,10 @@ namespace UniverseIntruders
 
         public static void SoundCleanup() {
             MenuMusic.Dispose();
+            GameMusic.Dispose();
+            foreach(KeyValuePair<string, SoundBuffer> sound in Sounds) {
+                sound.Value.Dispose();
+            }
         }
     }
 }
