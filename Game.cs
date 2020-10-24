@@ -19,6 +19,7 @@ namespace UniverseIntruders
         //const int WindowWidth = 1680;
         //const int WindowHeight = 1050;
         const int FPSLimit = 60;
+        const float MaxFrameTime = 1f;
         static Clock frameTimeClock;
         // Private set means only this class change the value
         public static float FrameTime { get; private set; }
@@ -71,9 +72,9 @@ namespace UniverseIntruders
             // Game loop
             while (window.IsOpen)
             {
-                // Get the time since the last frame
+                // Get the time since the last frame and limit it to the maximum
                 // Comment this out if debugging
-                FrameTime = frameTimeClock.ElapsedTime.AsSeconds();
+                FrameTime = Math.Clamp(frameTimeClock.ElapsedTime.AsSeconds(), 0f, MaxFrameTime);
                 frameTimeClock.Restart();
 
                 window.DispatchEvents();
