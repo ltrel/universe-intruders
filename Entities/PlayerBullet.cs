@@ -23,8 +23,14 @@ namespace UniverseIntruders {
         public override void Update()
         {
             Position += new Vector2f(0, -MoveSpeed*Game.FrameTime);
-            if(CollisionWithTag(CollisionTag.Enemy) != null)
-                Console.WriteLine("Bullet is colliding with enemy");
+            // If colliding with an enemy destroy the enemy and this bullet
+            if (CollisionWithTag(CollisionTag.Enemy) is Entity enemy)
+            {
+                Sound destroyedSound = new Sound(Resources.Sounds["destroyed"]);
+                destroyedSound.Play();
+                enemy.EntityDestroyed = true;
+                this.EntityDestroyed = true;
+            }
             // If bullet is off screen destroy it
             if (Position.Y-TextureRect.Height > TargetView.Size.Y)
                 EntityDestroyed = true;

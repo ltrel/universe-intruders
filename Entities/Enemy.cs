@@ -32,7 +32,9 @@ namespace UniverseIntruders
         public Enemy(Vector2f startPosition) : base(Resources.Textures["enemy"], Game.gameView)
         {
             CollisionTag = CollisionTag.Enemy;
+            // Use top row of pixels for collision checking
             SetDefaultCollider();
+            CollisionRect = new IntRect(0, 0, CollisionRect.Width, 1);
             MoveSpeed = 25f;
             Movements = new List<Vector2f>();
             movementIndex = 0;

@@ -16,7 +16,7 @@ namespace UniverseIntruders
         public View TargetView { get; protected set; }
         public IntRect CollisionRect { get; set; }
         public CollisionTag CollisionTag { get; set; }
-        public bool EntityDestroyed { get; protected set; }
+        public bool EntityDestroyed { get; set; }
         public int Depth { get; set; }
 
         public Entity(Texture texture, View targetView) : base(texture)
