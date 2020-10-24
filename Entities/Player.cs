@@ -56,6 +56,8 @@ namespace UniverseIntruders
                 // Player shooting
                 case Keyboard.Key.Space:
                     if(shootClock.ElapsedTime.AsMilliseconds() >= shootTime) {
+                        Sound shootSound = new Sound(Resources.Sounds["playershoot"]);
+                        shootSound.Play();
                         Vector2f position = Position + new Vector2f(TextureRect.Width/2, -10);
                         PlayerBullet bullet = new PlayerBullet(position);
                         Game.EntityQueue.Enqueue(bullet);
