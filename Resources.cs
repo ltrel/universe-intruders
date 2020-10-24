@@ -20,23 +20,30 @@ namespace UniverseIntruders
         public static Music MenuMusic { get; }
 
         static Resources() {
+            string baseDir = Environment.CurrentDirectory;
+            string resourceDir = Path.Join(baseDir, "Resources");
+
+            Directory.SetCurrentDirectory(Path.Join(resourceDir, "Textures"));
             Textures = new Dictionary<string, Texture>();
-            Textures.Add("player", new Texture("Resources\\Textures\\player.png"));
-            Textures.Add("playerbullet", new Texture("Resources\\Textures\\playerbullet.png"));
-            Textures.Add("enemy", new Texture("Resources\\Textures\\enemy.png"));
-            Textures.Add("stars1", new Texture("Resources\\Textures\\stars1.png"));
-            Textures.Add("stars2", new Texture("Resources\\Textures\\stars2.png"));
-            Textures.Add("stars3", new Texture("Resources\\Textures\\stars3.png"));
-            Textures.Add("stars4", new Texture("Resources\\Textures\\stars4.png"));
-            Textures.Add("borders", new Texture("Resources\\Textures\\borders.png"));
-            Textures.Add("menubackground", new Texture("Resources\\Textures\\menubackground.png"));
+            Textures.Add("player", new Texture("player.png"));
+            Textures.Add("playerbullet", new Texture("playerbullet.png"));
+            Textures.Add("enemy", new Texture("enemy.png"));
+            Textures.Add("stars1", new Texture("stars1.png"));
+            Textures.Add("stars2", new Texture("stars2.png"));
+            Textures.Add("stars3", new Texture("stars3.png"));
+            Textures.Add("stars4", new Texture("stars4.png"));
+            Textures.Add("borders", new Texture("borders.png"));
+            Textures.Add("menubackground", new Texture("menubackground.png"));
 
+            Directory.SetCurrentDirectory(Path.Join(resourceDir, "Fonts"));
             Fonts = new Dictionary<string, Font>();
-            Fonts.Add("ibmbios", new Font("Resources\\Fonts\\Ac437_IBM_BIOS.ttf"));
+            Fonts.Add("ibmbios", new Font("Ac437_IBM_BIOS.ttf"));
 
+            Directory.SetCurrentDirectory(Path.Join(resourceDir, "Sounds"));
             Sounds = new Dictionary<string, SoundBuffer>();
-            Sounds.Add("playershoot", new SoundBuffer("Resources\\Sound\\shoot.ogg"));
+            Sounds.Add("playershoot", new SoundBuffer("shoot.ogg"));
 
+            Directory.SetCurrentDirectory(baseDir);
             AppIcon = new Image("Resources\\icon.png");
             MenuMusic = new Music("Resources\\Sounds\\menu.ogg");
             MenuMusic.Volume = 10;
