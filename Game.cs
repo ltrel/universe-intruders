@@ -21,7 +21,7 @@ namespace UniverseIntruders
         const int FPSLimit = 60;
         const float MaxFrameTime = 1f;
         static Clock frameTimeClock;
-        // Private set means only this class change the value
+        // Private set means only this class can change the value
         public static float FrameTime { get; private set; }
         static VideoMode videoMode = new VideoMode(WindowWidth, WindowHeight);
         public static RenderWindow window { get; }
