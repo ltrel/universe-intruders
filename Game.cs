@@ -67,7 +67,7 @@ namespace UniverseIntruders
             Texts = new List<Text>();
             // Misc
             Rand = new Random();
-            BorderColor = GameBorder.colors[0];
+            BorderColor = GameBorder.Colors[0];
         }
 
         public static void Run()
@@ -189,6 +189,7 @@ namespace UniverseIntruders
             else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
             {
                 waitingForWave = false;
+                GameBorder.NextColor();
                 Console.WriteLine("STARTING NEXT WAVE");
                 EnemyRandom enemy3 = new EnemyRandom(gameView.Center);
                 enemy3.MinDistance = 5;
