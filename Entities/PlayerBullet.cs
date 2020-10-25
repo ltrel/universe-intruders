@@ -30,6 +30,8 @@ namespace UniverseIntruders {
                 destroyedSound.Play();
                 enemy.EntityDestroyed = true;
                 this.EntityDestroyed = true;
+                Game.Score += 10;
+                Game.UpdateScoreText();
             }
             // If bullet is off screen destroy it
             if (Position.Y-TextureRect.Height > TargetView.Size.Y)

@@ -13,6 +13,9 @@ namespace UniverseIntruders
 {
     static partial class Game
     {
+        // UI Elements
+        public static Text ScoreText { get; set; }
+
         private static void LevelSetup()
         {
             // Clear everything from the menu
@@ -30,6 +33,10 @@ namespace UniverseIntruders
             GameBorder rightBorder = new GameBorder(false);
             leftBorder.Initialize();
             rightBorder.Initialize();
+
+            ScoreText = new Text($"SCORE: {Score.ToString("D4")}", Resources.Fonts["ibmbios"], 30);
+            ScoreText.Position = new Vector2f(window.DefaultView.Size.X*0.75f + 32, 20);
+            Texts.Add(ScoreText);
 
             Player player = new Player();
             Enemy enemy1 = new Enemy(new Vector2f(10f, 38));

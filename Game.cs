@@ -20,7 +20,7 @@ namespace UniverseIntruders
         //const int WindowHeight = 1050;
         const int FPSLimit = 60;
         const float MaxFrameTime = 1f;
-        static Clock frameTimeClock;
+        private static Clock frameTimeClock;
         // Private set means only this class can change the value
         public static float FrameTime { get; private set; }
         static VideoMode videoMode = new VideoMode(WindowWidth, WindowHeight);
@@ -33,6 +33,12 @@ namespace UniverseIntruders
         public static List<Entity> Entities { get; }
         public static Queue<Entity> EntityQueue { get; }
         public static List<Text> Texts { get; }
+
+        // Game stuff
+        public static int Score { get; set; }
+        private static int waveDelay = 5000;
+        private static bool waitingForWave = false;
+        private static Clock waveClock;
 
         // Misc stuff
         public static Random Rand { get; private set; }
@@ -69,6 +75,7 @@ namespace UniverseIntruders
             MenuSetup();
             //LevelSetup();
             frameTimeClock = new Clock();
+            waveClock = new Clock();
             // Game loop
             while (window.IsOpen)
             {
@@ -79,6 +86,7 @@ namespace UniverseIntruders
 
                 window.DispatchEvents();
                 UpdateEntities();
+                GameLogic();
                 RenderFrame();
             }
             return;
@@ -159,6 +167,34 @@ namespace UniverseIntruders
             }
             // Toggle the debug view with f12
             if (eventArgs.Code == Keyboard.Key.F12) debug = !debug;
+        }
+
+        // Game logic
+        public static void UpdateScoreText()
+        {
+            ScoreText.DisplayedString = $"SCORE: {Score.ToString("D4")}";
+        }
+
+        public static void GameLogic()
+        {
+            // If menu is open do nothing
+            if(menu) return;
+            // If there are no enemies and not waiting for next wave
+            if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave)
+            {
+                waitingForWave = true;
+                waveClock.Restart();
+                Console.WriteLine("NEXT WAVE INBOUND");
+            }
+            else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
+            {
+                waitingForWave = false;
+                Console.WriteLine("STARTING NEXT WAVE");
+                EnemyRandom enemy3 = new EnemyRandom(gameView.Center);
+                enemy3.MinDistance = 5;
+                enemy3.MinDistance = 50;
+                enemy3.Initialize();
+            }
         }
     }
 }
