@@ -120,9 +120,10 @@ namespace UniverseIntruders
                     window.Draw(collider);
                 }
             }
+            // Use the window's default full resolution view for text rendering
+            window.SetView(window.DefaultView);
             foreach (Text text in Texts)
             {
-                window.SetView(window.DefaultView);
                 window.Draw(text);
             }
             window.Display();
