@@ -34,7 +34,7 @@ namespace UniverseIntruders {
                 Game.UpdateScoreText();
             }
             // If bullet is off screen destroy it
-            if (Position.Y-TextureRect.Height > TargetView.Size.Y)
+            if (Position.Y+TextureRect.Height < 0)
                 EntityDestroyed = true;
         }
     }

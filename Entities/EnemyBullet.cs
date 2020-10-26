@@ -34,7 +34,7 @@ namespace UniverseIntruders {
                 this.EntityDestroyed = true;
             }
             // If bullet is off screen destroy it
-            if (Position.Y < 0)
+            if (Position.Y > TargetView.Size.Y)
                 EntityDestroyed = true;
         }
     }
