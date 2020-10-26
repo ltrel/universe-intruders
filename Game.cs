@@ -48,6 +48,7 @@ namespace UniverseIntruders
         public static Random Rand { get; private set; }
         public static Color BorderColor { get; set; }
         private static bool menu = true;
+        private static bool inGame;
         private static bool debug = false;
 
         static Game()
@@ -163,6 +164,7 @@ namespace UniverseIntruders
                     window.DispatchEvents(); window.Display();
                 }
                 menu = false;
+                inGame = true;
                 LevelSetup();
             }
             // If the menu is onscreen and q was pressed, close the program
@@ -184,26 +186,29 @@ namespace UniverseIntruders
 
         public static void GameLogic()
         {
-            // If menu is open do nothing
-            if(menu) return;
-            // If there are no enemies and not waiting for next wave
-            if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave)
+            // If menu or game over screen is open skip this stuff
+            if (inGame)
             {
-                waitingForWave = true;
-                waveClock.Restart();
-                GameBorder.NextColor();
-                Console.WriteLine("NEXT WAVE INBOUND");
-            }
-            else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
-            {
-                waitingForWave = false;
-                Console.WriteLine("STARTING NEXT WAVE");
-                EnemyRandom enemy3 = new EnemyRandom(gameView.Center, false);
-                enemy3.MinDistance = 5;
-                enemy3.MinDistance = 50;
-                enemy3.Initialize();
+                // If there are no enemies and not waiting for next wave
+                if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave)
+                {
+                    waitingForWave = true;
+                    waveClock.Restart();
+                    GameBorder.NextColor();
+                    Console.WriteLine("NEXT WAVE INBOUND");
+                }
+                else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
+                {
+                    waitingForWave = false;
+                    Console.WriteLine("STARTING NEXT WAVE");
+                    EnemyRandom enemy3 = new EnemyRandom(gameView.Center, false);
+                    enemy3.MinDistance = 5;
+                    enemy3.MinDistance = 50;
+                    enemy3.Initialize();
+                }
             }
 
+            // If the game is over and not already waiting for the game over screen
             if (GameOver && !waitingForGameOver)
             {
                 timeSinceGameOver.Restart();
@@ -211,10 +216,13 @@ namespace UniverseIntruders
                 Console.WriteLine("GAME OVER");
             }
 
+            // If waiting for the game over screen and enough time has passed
             if (waitingForGameOver && timeSinceGameOver.ElapsedTime.AsMilliseconds() > gameOverScreenDelay)
             {
-                Resources.SoundCleanup();
-                window.Close();
+                GameOver = false;
+                waitingForGameOver = false;
+                inGame = false;
+                GameOverScreenSetup();
             }
         }
     }

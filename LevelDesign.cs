@@ -35,7 +35,7 @@ namespace UniverseIntruders
             rightBorder.Initialize();
 
             ScoreText = new Text($"SCORE: {Score.ToString("D4")}", Resources.Fonts["ibmbios"], 34);
-            ScoreText.Position = new Vector2f(window.DefaultView.Size.X*0.75f + 32, 20);
+            ScoreText.Position = new Vector2f(window.DefaultView.Size.X * 0.75f + 32, 20);
             Texts.Add(ScoreText);
 
             Player player = new Player();
@@ -82,6 +82,24 @@ namespace UniverseIntruders
                 window.DefaultView.Size.X / 2 - quit.GetLocalBounds().Width / 2,
                 window.DefaultView.Size.Y * 0.5f - quit.GetLocalBounds().Height / 2 + quit.CharacterSize * 6);
             Texts.Add(quit);
+        }
+
+        private static void GameOverScreenSetup()
+        {
+            // Clear everything from the game
+            Texts.Clear();
+            Entities.Clear();
+            Resources.GameMusic.Stop(); 
+
+            Resources.MenuMusic.Play();
+            Entity background = new Entity(Resources.Textures["menubackground"], windowView);
+            background.Depth = 1;
+            background.Initialize();
+            Text title = new Text("Game Over", Resources.Fonts["ibmbios"], 50);
+            title.Position = new Vector2f(
+                window.DefaultView.Size.X / 2 - title.GetLocalBounds().Width / 2,
+                window.DefaultView.Size.Y * 0.16f - title.GetLocalBounds().Height / 2);
+            Texts.Add(title);
         }
     }
 }
