@@ -16,9 +16,9 @@ namespace UniverseIntruders
         public float MinDistance { get; set; }
         public float MaxDistance { get; set; }
 
-        public EnemyRandom(Vector2f startPosition) : base(startPosition)
+        public EnemyRandom(Vector2f startPosition, bool moveToStart) : base(startPosition, moveToStart)
         {
-            movementBounds = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y-30);
+            movementBounds = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y+TextureRect.Height);
         }
 
         protected override void SetNextDestination()

@@ -191,7 +191,7 @@ namespace UniverseIntruders
             {
                 waitingForWave = false;
                 Console.WriteLine("STARTING NEXT WAVE");
-                EnemyRandom enemy3 = new EnemyRandom(gameView.Center);
+                EnemyRandom enemy3 = new EnemyRandom(gameView.Center, false);
                 enemy3.MinDistance = 5;
                 enemy3.MinDistance = 50;
                 enemy3.Initialize();

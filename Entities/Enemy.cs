@@ -31,7 +31,7 @@ namespace UniverseIntruders
         protected Clock shootClock;
 
         // Note: the CENTER of the sprite will end up at the start position
-        public Enemy(Vector2f startPosition) : base(Resources.Textures["enemy"], Game.gameView)
+        public Enemy(Vector2f startPosition, bool moveToStart) : base(Resources.Textures["enemy"], Game.gameView)
         {
             CollisionTag = CollisionTag.Enemy;
             // Use top row of pixels for collision checking
@@ -53,7 +53,9 @@ namespace UniverseIntruders
             this.startPosition = startPosition;
 
             // Actually spawn the entity off-screen, either to the left or right depending on what's closer
-            if (startPosition.X > TargetView.Size.X / 2)
+            if (!moveToStart)
+                Position = startPosition;
+            else if (startPosition.X > TargetView.Size.X / 2)
             {
                 Position = new Vector2f(startPosition.X + TargetView.Size.X / 2 + 20, startPosition.Y);
             }

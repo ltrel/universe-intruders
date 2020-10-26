@@ -39,19 +39,19 @@ namespace UniverseIntruders
             Texts.Add(ScoreText);
 
             Player player = new Player();
-            Enemy enemy1 = new Enemy(new Vector2f(10f, 38));
+            Enemy enemy1 = new Enemy(new Vector2f(10f, 38), false);
             enemy1.Movements.Add(new Vector2f(138f, 0f));
             enemy1.Movements.Add(new Vector2f(0f, 10f));
             enemy1.Movements.Add(new Vector2f(-138f, 0f));
             enemy1.Movements.Add(new Vector2f(0f, 10f));
             enemy1.Initialize();
-            Enemy enemy2 = new Enemy(new Vector2f(148f, 48f));
+            Enemy enemy2 = new Enemy(new Vector2f(148f, 48f), false);
             enemy2.Movements.Add(new Vector2f(-138f, 0f));
             enemy2.Movements.Add(new Vector2f(0f, 10f));
             enemy2.Movements.Add(new Vector2f(138f, 0f));
             enemy2.Movements.Add(new Vector2f(0f, 10f));
             enemy2.Initialize();
-            EnemyRandom enemy3 = new EnemyRandom(gameView.Center);
+            EnemyRandom enemy3 = new EnemyRandom(gameView.Center, false);
             enemy3.MinDistance = 5;
             enemy3.MinDistance = 50;
             enemy3.Initialize();
