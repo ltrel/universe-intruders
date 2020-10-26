@@ -34,7 +34,7 @@ namespace UniverseIntruders
             leftBorder.Initialize();
             rightBorder.Initialize();
 
-            ScoreText = new Text($"SCORE: {Score.ToString("D4")}", Resources.Fonts["ibmbios"], 30);
+            ScoreText = new Text($"SCORE: {Score.ToString("D4")}", Resources.Fonts["ibmbios"], 34);
             ScoreText.Position = new Vector2f(window.DefaultView.Size.X*0.75f + 32, 20);
             Texts.Add(ScoreText);
 

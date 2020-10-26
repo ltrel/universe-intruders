@@ -14,10 +14,10 @@ namespace UniverseIntruders
     static partial class Game
     {
         // Graphics stuff
-        const int WindowWidth = 1280;
-        const int WindowHeight = 800;
-        //const int WindowWidth = 1680;
-        //const int WindowHeight = 1050;
+        //const int WindowWidth = 1280;
+        //const int WindowHeight = 800;
+        const int WindowWidth = 1440;
+        const int WindowHeight = 900;
         const int FPSLimit = 60;
         const float MaxFrameTime = 1f;
         private static Clock frameTimeClock;
@@ -184,12 +184,12 @@ namespace UniverseIntruders
             {
                 waitingForWave = true;
                 waveClock.Restart();
+                GameBorder.NextColor();
                 Console.WriteLine("NEXT WAVE INBOUND");
             }
             else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
             {
                 waitingForWave = false;
-                GameBorder.NextColor();
                 Console.WriteLine("STARTING NEXT WAVE");
                 EnemyRandom enemy3 = new EnemyRandom(gameView.Center);
                 enemy3.MinDistance = 5;
