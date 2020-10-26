@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -26,6 +27,7 @@ namespace UniverseIntruders
         protected bool reachedStartPosition = false;
 
         public int shootDelay { get; set; }
+        protected int shootOffset;
         protected Clock shootClock;
 
         // Note: the CENTER of the sprite will end up at the start position
@@ -40,6 +42,11 @@ namespace UniverseIntruders
             movementIndex = 0;
             MoveDelay = 500;
             LoopMovements = true;
+            shootDelay = 700;
+
+            // Offset the shooting of the enemy by a random number of milliseconds
+            // so that all enemies will shoot at different times
+            shootOffset = Game.Rand.Next(shootDelay);
 
             // Offset slightly for center of sprite
             startPosition -= new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
@@ -66,17 +73,25 @@ namespace UniverseIntruders
             }
             else currentDestination = startPosition;
             moveClock = new Clock();
+            shootClock = new Clock();
             base.Initialize();
         }
 
         public override void Update()
         {
+
+            // If time since last shot was greater than delay between last shot
+            // and the starting offset has been passed
+            if(shootClock.ElapsedTime.AsMilliseconds() - shootOffset > shootDelay )
+                Shoot();
+
             // If starting position hasn't been reached yet, move towards it and do nothing else
             if (!reachedStartPosition)
             {
                 reachedStartPosition = StepTowards(startPosition);
                 return;
             }
+
             // Take a step towards the current destination, if already there
             // run everything inside the if statement
             if (isMoving)
@@ -88,6 +103,7 @@ namespace UniverseIntruders
                     SetNextDestination();
                 }
             }
+            // If not moving and past delay between movements, start moving again
             else if (moveClock.ElapsedTime.AsMilliseconds() >= MoveDelay) isMoving = true;
         }
 
@@ -131,6 +147,16 @@ namespace UniverseIntruders
             // If loop is off, the enemy will remain at it's last destination
             // and the two if statements above will continue
             // wasting cpu instructions for all eternity
+        }
+
+        protected virtual void Shoot()
+        {
+            Sound shootSound = new Sound(Resources.Sounds["enemyshoot"]);
+            shootSound.Play();
+            Vector2f position = Position + new Vector2f(TextureRect.Width/2, 10);
+            EnemyBullet bullet = new EnemyBullet(position);
+            Game.EntityQueue.Enqueue(bullet);
+            shootClock.Restart();
         }
     }
 }
