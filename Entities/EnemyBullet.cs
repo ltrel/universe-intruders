@@ -25,7 +25,7 @@ namespace UniverseIntruders {
         public override void Update()
         {
             Position += new Vector2f(0, MoveSpeed*Game.FrameTime);
-            // If colliding with an enemy destroy the enemy and this bullet
+            // If colliding with the player destroy the player and this bullet
             if (CollisionWithTag(CollisionTag.Player) is Entity player)
             {
                 Sound destroyedSound = new Sound(Resources.Sounds["destroyed"]);
