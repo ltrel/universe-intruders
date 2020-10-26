@@ -19,6 +19,7 @@ namespace UniverseIntruders
 
         public Player() : base(Resources.Textures["player"], Game.gameView)
         {
+            CollisionTag = CollisionTag.Player;
             Depth = 0;
             MoveSpeed = 60f;
             // Set position to the horizontal center of the screen near the bottom
