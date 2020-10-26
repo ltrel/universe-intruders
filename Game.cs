@@ -39,6 +39,10 @@ namespace UniverseIntruders
         private static int waveDelay = 5000;
         private static bool waitingForWave = false;
         private static Clock waveClock;
+        public static bool GameOver { get; set; }
+        private static bool waitingForGameOver = false;
+        private static Clock timeSinceGameOver;
+        private static int gameOverScreenDelay = 3000;
 
         // Misc stuff
         public static Random Rand { get; private set; }
@@ -68,14 +72,17 @@ namespace UniverseIntruders
             // Misc
             Rand = new Random();
             BorderColor = GameBorder.Colors[0];
+
+            GameOver = false;
         }
 
         public static void Run()
         {
             MenuSetup();
-            //LevelSetup();
             frameTimeClock = new Clock();
             waveClock = new Clock();
+            timeSinceGameOver = new Clock();
+
             // Game loop
             while (window.IsOpen)
             {
@@ -86,8 +93,8 @@ namespace UniverseIntruders
 
                 window.DispatchEvents();
                 UpdateEntities();
-                GameLogic();
                 RenderFrame();
+                GameLogic();
             }
             return;
         }
@@ -195,6 +202,19 @@ namespace UniverseIntruders
                 enemy3.MinDistance = 5;
                 enemy3.MinDistance = 50;
                 enemy3.Initialize();
+            }
+
+            if (GameOver && !waitingForGameOver)
+            {
+                timeSinceGameOver.Restart();
+                waitingForGameOver = true;
+                Console.WriteLine("GAME OVER");
+            }
+
+            if (waitingForGameOver && timeSinceGameOver.ElapsedTime.AsMilliseconds() > gameOverScreenDelay)
+            {
+                Resources.SoundCleanup();
+                window.Close();
             }
         }
     }
