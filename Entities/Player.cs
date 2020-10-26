@@ -53,6 +53,7 @@ namespace UniverseIntruders
         }
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
+            if (EntityDestroyed) return;
             switch(keyEventArgs.Code) {
                 // Player shooting
                 case Keyboard.Key.Space:
