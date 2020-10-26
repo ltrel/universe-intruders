@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -18,7 +19,7 @@ namespace UniverseIntruders
         //const int WindowHeight = 800;
         const int WindowWidth = 1440;
         const int WindowHeight = 900;
-        const int FPSLimit = 60;
+        const int FPSLimit = 90;
         const float MaxFrameTime = 1f;
         private static Clock frameTimeClock;
         // Private set means only this class can change the value
@@ -50,6 +51,7 @@ namespace UniverseIntruders
         private static bool menu = true;
         private static bool inGame;
         private static bool debug = false;
+        private static string scoreFile = "highscore";
 
         static Game()
         {
@@ -222,8 +224,29 @@ namespace UniverseIntruders
                 GameOver = false;
                 waitingForGameOver = false;
                 inGame = false;
+                SaveScore();
                 GameOverScreenSetup();
             }
+        }
+
+        // Scores are saved as binary files to make it slightly harder for people to edit them
+        private static void SaveScore()
+        {
+            if (Score > GetHighScore())
+            {
+                BinaryWriter writer = new BinaryWriter(File.Open(scoreFile, FileMode.Create));
+                writer.Write(Score);
+                writer.Close();
+            }
+        }
+
+        private static int GetHighScore()
+        {
+            if (!File.Exists(scoreFile)) return 0;
+            BinaryReader reader = new BinaryReader(File.Open(scoreFile, FileMode.Open));
+            int result = reader.ReadInt32();
+            reader.Close();
+            return result;
         }
     }
 }
