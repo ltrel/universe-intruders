@@ -22,6 +22,7 @@ namespace UniverseIntruders
         public int MoveDelay { get; set; }
         protected Clock moveClock;
         protected bool isMoving = true;
+        public FloatRect Boundaries { get; set; }
 
         protected Vector2f startPosition { get; }
         protected bool reachedStartPosition = false;
@@ -42,6 +43,7 @@ namespace UniverseIntruders
             movementIndex = 0;
             MoveDelay = 500;
             LoopMovements = true;
+            Boundaries = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y + TextureRect.Height);
             shootDelay = 700;
 
             // Offset the shooting of the enemy by a random number of milliseconds
@@ -82,9 +84,10 @@ namespace UniverseIntruders
         public override void Update()
         {
 
-            // If time since last shot was greater than delay between last shot
-            // and the starting offset has been passed
-            if(shootClock.ElapsedTime.AsMilliseconds() - shootOffset > shootDelay )
+            // If time since last shot was greater than delay between last shot,
+            // the starting offset has been passed, and the enemy is in the boundaries
+            if (shootClock.ElapsedTime.AsMilliseconds() - shootOffset > shootDelay &&
+                Collision.IsPointInRect(Position, Boundaries))
                 Shoot();
 
             // If starting position hasn't been reached yet, move towards it and do nothing else
@@ -155,7 +158,7 @@ namespace UniverseIntruders
         {
             Sound shootSound = new Sound(Resources.Sounds["enemyshoot"]);
             shootSound.Play();
-            Vector2f position = Position + new Vector2f(TextureRect.Width/2, 10);
+            Vector2f position = Position + new Vector2f(TextureRect.Width / 2, 10);
             EnemyBullet bullet = new EnemyBullet(position);
             Game.EntityQueue.Enqueue(bullet);
             shootClock.Restart();

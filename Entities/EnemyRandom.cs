@@ -12,13 +12,11 @@ namespace UniverseIntruders
 {
     class EnemyRandom : Enemy
     {
-        public FloatRect movementBounds { get; set; }
         public float MinDistance { get; set; }
         public float MaxDistance { get; set; }
 
         public EnemyRandom(Vector2f startPosition, bool moveToStart) : base(startPosition, moveToStart)
         {
-            movementBounds = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y+TextureRect.Height);
         }
 
         protected override void SetNextDestination()
@@ -37,7 +35,7 @@ namespace UniverseIntruders
                 // Add this onto the enemy's current position
                 newDestination = Position + step;
                 // If the destination is outside of the bounds, try again
-            } while (!Collision.IsPointInRect(newDestination, movementBounds));
+            } while (!Collision.IsPointInRect(newDestination, Boundaries));
             currentDestination = newDestination;
         }
     }
