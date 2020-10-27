@@ -240,6 +240,7 @@ namespace UniverseIntruders
             gameOverTimer.Reset();
             waveClock.Restart();
             Score = 0;
+            currentWave = 0;
             BorderColor = GameBorder.Colors[0];
         }
     }
