@@ -28,7 +28,7 @@ namespace UniverseIntruders
         public bool ReachedStartPosition { get; protected set; }
         protected float towardsStartSpeed { get; }
 
-        public int shootDelay { get; set; }
+        public int ShootDelay { get; set; }
         protected int shootOffset;
         protected Clock shootClock;
 
@@ -47,11 +47,11 @@ namespace UniverseIntruders
             MoveDelay = 500;
             LoopMovements = true;
             Boundaries = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y + TextureRect.Height);
-            shootDelay = 800;
+            ShootDelay = 800;
 
             // Offset the shooting of the enemy by a random number of milliseconds
             // so that all enemies will shoot at different times
-            shootOffset = Game.Rand.Next(shootDelay);
+            shootOffset = Game.Rand.Next(ShootDelay);
 
             // Offset slightly for center of sprite
             startPosition -= new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
@@ -90,7 +90,7 @@ namespace UniverseIntruders
 
             // If time since last shot was greater than delay between last shot,
             // the starting offset has been passed, and the enemy is in the boundaries
-            if (shootClock.ElapsedTime.AsMilliseconds() - shootOffset > shootDelay &&
+            if (shootClock.ElapsedTime.AsMilliseconds() - shootOffset > ShootDelay &&
                 Collision.IsPointInRect(Position, Boundaries))
                 Shoot();
 
