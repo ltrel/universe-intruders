@@ -209,23 +209,6 @@ namespace UniverseIntruders
                 }
             }
 
-            // If the game is over and not already waiting for the game over screen
-            //if (GameOver && !waitingForGameOver)
-            //{
-            //    timeSinceGameOver.Restart();
-            //    waitingForGameOver = true;
-            //    Console.WriteLine("GAME OVER");
-            //}
-
-            //// If waiting for the game over screen and enough time has passed
-            //if (waitingForGameOver && timeSinceGameOver.ElapsedTime.AsMilliseconds() > gameOverScreenDelay)
-            //{
-            //    GameOver = false;
-            //    waitingForGameOver = false;
-            //    inGame = false;
-            //    SaveScore();
-            //    GameOverScreenSetup();
-            //}
             gameOverTimer.StartCondition = GameOver;
             if (gameOverTimer.Tick())
             {
