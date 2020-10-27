@@ -26,6 +26,7 @@ namespace UniverseIntruders
 
         protected Vector2f startPosition { get; }
         public bool ReachedStartPosition { get; protected set; }
+        protected float towardsStartSpeed { get; }
 
         public int shootDelay { get; set; }
         protected int shootOffset;
@@ -40,6 +41,7 @@ namespace UniverseIntruders
             SetDefaultCollider();
             CollisionRect = new IntRect(0, 0, CollisionRect.Width, 1);
             MoveSpeed = 25f;
+            towardsStartSpeed = 30f;
             Movements = new List<Vector2f>();
             movementIndex = 0;
             MoveDelay = 500;
@@ -95,7 +97,7 @@ namespace UniverseIntruders
             // If starting position hasn't been reached yet, move towards it and do nothing else
             if (!ReachedStartPosition)
             {
-                ReachedStartPosition = StepTowards(startPosition);
+                ReachedStartPosition = StepTowards(startPosition, towardsStartSpeed);
                 if (ReachedStartPosition) Color = new Color(0xffffffff);
                 return;
             }
@@ -117,10 +119,10 @@ namespace UniverseIntruders
 
         // https://www.desmos.com/calculator/llcv91zhfi
         // Returns true if the destination has been reached
-        protected bool StepTowards(Vector2f destination)
+        protected bool StepTowards(Vector2f destination, float speed)
         {
             //if (destination == new Vector2f(0, 0)) return true;
-            float realSpeed = MoveSpeed * Game.FrameTime;
+            float realSpeed = speed * Game.FrameTime;
             float distance = (float)Math.Sqrt(
                 (destination.X - Position.X) * (destination.X - Position.X) +
                 (destination.Y - Position.Y) * (destination.Y - Position.Y)
@@ -140,6 +142,12 @@ namespace UniverseIntruders
 
             return Position == destination;
         }
+        // Using default speed
+        protected bool StepTowards(Vector2f destination)
+        {
+            return StepTowards(destination, MoveSpeed);
+        }
+
 
         protected virtual void SetNextDestination()
         {
