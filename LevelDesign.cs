@@ -115,26 +115,51 @@ namespace UniverseIntruders
 
         private static void GenerateWaves()
         {
+            // Yes apparently you can use curly braces with no if statement or anything
+            // just to limit variable scope
+
+            // WAVE 1
             {
-                // Wave 1
-                List<Enemy> wave1 = new List<Enemy>();
+                List<Enemy> wave = new List<Enemy>();
                 Enemy enemy1 = new Enemy(new Vector2f(10f, 38), true);
                 enemy1.Movements.Add(new Vector2f(138f, 0f));
                 enemy1.Movements.Add(new Vector2f(0f, 10f));
                 enemy1.Movements.Add(new Vector2f(-138f, 0f));
                 enemy1.Movements.Add(new Vector2f(0f, 10f));
-                wave1.Add(enemy1);
+                wave.Add(enemy1);
                 Enemy enemy2 = new Enemy(new Vector2f(148f, 48f), true);
                 enemy2.Movements.Add(new Vector2f(-138f, 0f));
                 enemy2.Movements.Add(new Vector2f(0f, 10f));
                 enemy2.Movements.Add(new Vector2f(138f, 0f));
                 enemy2.Movements.Add(new Vector2f(0f, 10f));
-                wave1.Add(enemy2);
+                wave.Add(enemy2);
                 EnemyRandom enemy3 = new EnemyRandom(gameView.Center, true);
                 enemy3.MinDistance = 5;
                 enemy3.MinDistance = 50;
-                wave1.Add(enemy3);
-                waveList.Add(wave1);
+                wave.Add(enemy3);
+                waveList.Add(wave);
+            }
+            // WAVE 2
+            {
+                List<Enemy> wave = new List<Enemy>();
+                // Move around in diamond shape
+                Enemy enemy1 = new Enemy(new Vector2f(35, 60), true);
+                enemy1.Movements.Add(new Vector2f(44, -44));
+                enemy1.Movements.Add(new Vector2f(44, 44));
+                enemy1.Movements.Add(new Vector2f(-44, 44));
+                enemy1.Movements.Add(new Vector2f(-44, -44));
+                wave.Add(enemy1);
+                // Move straight down left side
+                Enemy enemy2 = new Enemy(new Vector2f(30, 38), true);
+                enemy2.Movements.Add(new Vector2f(0, 200));
+                enemy2.MoveSpeed = 15;
+                wave.Add(enemy2);
+                // Move straight down right side
+                Enemy enemy3 = new Enemy(new Vector2f(128, 38), true);
+                enemy3.Movements.Add(new Vector2f(0, 200));
+                enemy3.MoveSpeed = 15;
+                wave.Add(enemy3);
+                waveList.Add(wave);
             }
         }
 
