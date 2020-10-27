@@ -43,7 +43,7 @@ namespace UniverseIntruders
             Texts.Add(ScoreText);
 
             Player player = new Player();
-            
+
             // Start the first wave
             SpawnNextWave();
         }
@@ -115,6 +115,7 @@ namespace UniverseIntruders
 
         private static void GenerateWaves()
         {
+            waveList.Clear();
             // Yes apparently you can use curly braces with no if statement or anything
             // just to limit variable scope
 
@@ -163,8 +164,24 @@ namespace UniverseIntruders
             }
         }
 
-        private static void SpawnNextWave() {
-            foreach(Enemy enemy in waveList[currentWave++]) {
+        private static void SpawnNextWave()
+        {
+            int indexToSpawn;
+            // Use the next wave if there is one, otherwise use the last wave
+            if (currentWave < waveList.Count)
+                indexToSpawn = currentWave++;
+            else
+            {
+                indexToSpawn = waveList.Count - 1;
+                // Am I going to rebuild the entire list of waves because I couldn't
+                // figure out how to write a copy constructor for the enemies to stop
+                // things in the original list from changing? Yes, yes I am.
+                GenerateWaves();
+            }
+
+            foreach (Enemy enemy in waveList[indexToSpawn])
+            {
+                enemy.EntityDestroyed = false;
                 enemy.Initialize();
             }
         }
