@@ -16,6 +16,10 @@ namespace UniverseIntruders
         // UI Elements
         public static Text ScoreText { get; set; }
 
+        // List of waves
+        private static List<List<Enemy>> waveList = new List<List<Enemy>>();
+        private static int currentWave = 0;
+
         private static void LevelSetup()
         {
             // Clear everything from the menu
@@ -39,22 +43,9 @@ namespace UniverseIntruders
             Texts.Add(ScoreText);
 
             Player player = new Player();
-            Enemy enemy1 = new Enemy(new Vector2f(10f, 38), false);
-            enemy1.Movements.Add(new Vector2f(138f, 0f));
-            enemy1.Movements.Add(new Vector2f(0f, 10f));
-            enemy1.Movements.Add(new Vector2f(-138f, 0f));
-            enemy1.Movements.Add(new Vector2f(0f, 10f));
-            enemy1.Initialize();
-            Enemy enemy2 = new Enemy(new Vector2f(148f, 48f), false);
-            enemy2.Movements.Add(new Vector2f(-138f, 0f));
-            enemy2.Movements.Add(new Vector2f(0f, 10f));
-            enemy2.Movements.Add(new Vector2f(138f, 0f));
-            enemy2.Movements.Add(new Vector2f(0f, 10f));
-            enemy2.Initialize();
-            EnemyRandom enemy3 = new EnemyRandom(gameView.Center, false);
-            enemy3.MinDistance = 5;
-            enemy3.MinDistance = 50;
-            enemy3.Initialize();
+            
+            // Start the first wave
+            SpawnNextWave();
         }
         private static void MenuSetup()
         {
@@ -89,7 +80,7 @@ namespace UniverseIntruders
             // Clear everything from the game
             Texts.Clear();
             Entities.Clear();
-            Resources.GameMusic.Stop(); 
+            Resources.GameMusic.Stop();
 
             Resources.MenuMusic.Play();
             Entity background = new Entity(Resources.Textures["menubackground"], windowView);
@@ -120,6 +111,37 @@ namespace UniverseIntruders
                 window.DefaultView.Size.X / 2 - quit.GetLocalBounds().Width / 2,
                 window.DefaultView.Size.Y * 0.40f - quit.GetLocalBounds().Height / 2 + quit.CharacterSize * 9);
             Texts.Add(quit);
+        }
+
+        private static void GenerateWaves()
+        {
+            {
+                // Wave 1
+                List<Enemy> wave1 = new List<Enemy>();
+                Enemy enemy1 = new Enemy(new Vector2f(10f, 38), true);
+                enemy1.Movements.Add(new Vector2f(138f, 0f));
+                enemy1.Movements.Add(new Vector2f(0f, 10f));
+                enemy1.Movements.Add(new Vector2f(-138f, 0f));
+                enemy1.Movements.Add(new Vector2f(0f, 10f));
+                wave1.Add(enemy1);
+                Enemy enemy2 = new Enemy(new Vector2f(148f, 48f), true);
+                enemy2.Movements.Add(new Vector2f(-138f, 0f));
+                enemy2.Movements.Add(new Vector2f(0f, 10f));
+                enemy2.Movements.Add(new Vector2f(138f, 0f));
+                enemy2.Movements.Add(new Vector2f(0f, 10f));
+                wave1.Add(enemy2);
+                EnemyRandom enemy3 = new EnemyRandom(gameView.Center, true);
+                enemy3.MinDistance = 5;
+                enemy3.MinDistance = 50;
+                wave1.Add(enemy3);
+                waveList.Add(wave1);
+            }
+        }
+
+        private static void SpawnNextWave() {
+            foreach(Enemy enemy in waveList[currentWave++]) {
+                enemy.Initialize();
+            }
         }
     }
 }

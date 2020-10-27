@@ -37,7 +37,7 @@ namespace UniverseIntruders
 
         // Game stuff
         public static int Score { get; set; }
-        private static int waveDelay = 5000;
+        private static int waveDelay = 3000;
         private static bool waitingForWave = false;
         private static Clock waveClock;
         public static bool GameOver { get; set; }
@@ -48,7 +48,7 @@ namespace UniverseIntruders
         // Misc stuff
         public static Random Rand { get; private set; }
         public static Color BorderColor { get; set; }
-        private static bool menu = true;
+        //private static bool menu = true;
         private static bool inGame;
         private static bool debug = false;
         private static string scoreFile = "highscore";
@@ -81,6 +81,7 @@ namespace UniverseIntruders
 
         public static void Run()
         {
+            GenerateWaves();
             MenuSetup();
             frameTimeClock = new Clock();
             waveClock = new Clock();
@@ -164,7 +165,7 @@ namespace UniverseIntruders
                 {
                     window.DispatchEvents(); window.Display();
                 }
-                menu = false;
+                //menu = false;
                 inGame = true;
                 ResetGame();
                 LevelSetup();
@@ -202,10 +203,7 @@ namespace UniverseIntruders
                 {
                     waitingForWave = false;
                     Console.WriteLine("STARTING NEXT WAVE");
-                    EnemyRandom enemy3 = new EnemyRandom(gameView.Center, false);
-                    enemy3.MinDistance = 5;
-                    enemy3.MinDistance = 50;
-                    enemy3.Initialize();
+                    SpawnNextWave();
                 }
             }
 
