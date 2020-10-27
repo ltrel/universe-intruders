@@ -103,13 +103,23 @@ namespace UniverseIntruders
             Text score = new Text($"Score: {Score.ToString("D4")}", Resources.Fonts["ibmbios"], 36);
             score.Position = new Vector2f(
                 window.DefaultView.Size.X / 2 - score.GetLocalBounds().Width / 2,
-                window.DefaultView.Size.Y * 0.5f - score.GetLocalBounds().Height / 2);
+                window.DefaultView.Size.Y * 0.40f - score.GetLocalBounds().Height / 2);
             Texts.Add(score);
             Text highScore = new Text($"High Score: {GetHighScore().ToString("D4")}", Resources.Fonts["ibmbios"], 36);
             highScore.Position = new Vector2f(
                 window.DefaultView.Size.X / 2 - highScore.GetLocalBounds().Width / 2,
-                window.DefaultView.Size.Y * 0.5f - highScore.GetLocalBounds().Height / 2 + highScore.CharacterSize * 3);
+                window.DefaultView.Size.Y * 0.40f - highScore.GetLocalBounds().Height / 2 + highScore.CharacterSize * 3);
             Texts.Add(highScore);
+            Text restart = new Text("Press SPACE to restart", Resources.Fonts["ibmbios"], 36);
+            restart.Position = new Vector2f(
+                window.DefaultView.Size.X / 2 - restart.GetLocalBounds().Width / 2,
+                window.DefaultView.Size.Y * 0.40f - restart.GetLocalBounds().Height / 2 + restart.CharacterSize * 6);
+            Texts.Add(restart);
+            Text quit = new Text("Or press Q to quit", Resources.Fonts["ibmbios"], 36);
+            quit.Position = new Vector2f(
+                window.DefaultView.Size.X / 2 - quit.GetLocalBounds().Width / 2,
+                window.DefaultView.Size.Y * 0.40f - quit.GetLocalBounds().Height / 2 + quit.CharacterSize * 9);
+            Texts.Add(quit);
         }
     }
 }

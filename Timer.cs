@@ -7,7 +7,7 @@ namespace UniverseIntruders
     {
         public bool StartCondition { get; set; }
         public bool TimerHasStarted { get; set; }
-        private bool hasFinished;
+        public bool hasFinished { get; private set; }
         public int Length { get; }
 
         private Clock clock;

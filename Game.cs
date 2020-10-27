@@ -95,8 +95,8 @@ namespace UniverseIntruders
 
                 window.DispatchEvents();
                 UpdateEntities();
-                RenderFrame();
                 GameLogic();
+                RenderFrame();
             }
             return;
         }
@@ -155,7 +155,7 @@ namespace UniverseIntruders
         private static void OnKeyDown(object sender, KeyEventArgs eventArgs)
         {
             // If the menu is onscreen and space was pressed, start the game
-            if (menu && eventArgs.Code == Keyboard.Key.Space)
+            if (!inGame && eventArgs.Code == Keyboard.Key.Space)
             {
                 // Wait for 500 milliseconds
                 Clock delayClock = new Clock();
@@ -166,12 +166,12 @@ namespace UniverseIntruders
                 }
                 menu = false;
                 inGame = true;
+                ResetGame();
                 LevelSetup();
             }
-            // If the menu is onscreen and q was pressed, close the program
-            if (menu && eventArgs.Code == Keyboard.Key.Q)
+            // If the menu or game over screen is onscreen and q was pressed, close the program
+            if (!inGame && eventArgs.Code == Keyboard.Key.Q)
             {
-                menu = false;
                 Resources.SoundCleanup();
                 window.Close();
             }
@@ -230,6 +230,7 @@ namespace UniverseIntruders
             if (gameOverTimer.Tick())
             {
                 inGame = false;
+                SaveScore();
                 GameOverScreenSetup();
             }
         }
@@ -252,6 +253,15 @@ namespace UniverseIntruders
             int result = reader.ReadInt32();
             reader.Close();
             return result;
+        }
+
+        private static void ResetGame()
+        {
+            GameOver = false;
+            gameOverTimer.Reset();
+            waveClock.Restart();
+            Score = 0;
+            BorderColor = GameBorder.Colors[0];
         }
     }
 }

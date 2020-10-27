@@ -53,7 +53,8 @@ namespace UniverseIntruders
         }
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
-            if (EntityDestroyed) return;
+            // If entity is destroyed or this entity is not in the list, don't do anything
+            if (EntityDestroyed || !Game.Entities.Contains(this)) return;
             switch(keyEventArgs.Code) {
                 // Player shooting
                 case Keyboard.Key.Space:
