@@ -48,7 +48,6 @@ namespace UniverseIntruders
         // Misc stuff
         public static Random Rand { get; private set; }
         public static Color BorderColor { get; set; }
-        //private static bool menu = true;
         private static bool inGame;
         private static bool debug = false;
         private static string scoreFile = "highscore";
@@ -165,7 +164,6 @@ namespace UniverseIntruders
                 {
                     window.DispatchEvents(); window.Display();
                 }
-                //menu = false;
                 inGame = true;
                 ResetGame();
                 LevelSetup();
