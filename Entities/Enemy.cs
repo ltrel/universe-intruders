@@ -25,7 +25,7 @@ namespace UniverseIntruders
         public FloatRect Boundaries { get; set; }
 
         protected Vector2f startPosition { get; }
-        protected bool reachedStartPosition = false;
+        public bool ReachedStartPosition { get; protected set; }
 
         public int shootDelay { get; set; }
         protected int shootOffset;
@@ -34,6 +34,7 @@ namespace UniverseIntruders
         // Note: the CENTER of the sprite will end up at the start position
         public Enemy(Vector2f startPosition, bool moveToStart) : base(Resources.Textures["enemy"], Game.gameView)
         {
+            ReachedStartPosition = false;
             CollisionTag = CollisionTag.Enemy;
             // Use top row of pixels for collision checking
             SetDefaultCollider();
@@ -44,7 +45,7 @@ namespace UniverseIntruders
             MoveDelay = 500;
             LoopMovements = true;
             Boundaries = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y + TextureRect.Height);
-            shootDelay = 700;
+            shootDelay = 800;
 
             // Offset the shooting of the enemy by a random number of milliseconds
             // so that all enemies will shoot at different times
@@ -65,6 +66,7 @@ namespace UniverseIntruders
             {
                 Position = new Vector2f(startPosition.X - TargetView.Size.X / 2 - 20, startPosition.Y);
             }
+            Color = new Color(255, 255, 255, 60);
         }
 
         public override void Initialize()
@@ -91,9 +93,10 @@ namespace UniverseIntruders
                 Shoot();
 
             // If starting position hasn't been reached yet, move towards it and do nothing else
-            if (!reachedStartPosition)
+            if (!ReachedStartPosition)
             {
-                reachedStartPosition = StepTowards(startPosition);
+                ReachedStartPosition = StepTowards(startPosition);
+                if (ReachedStartPosition) Color = new Color(0xffffffff);
                 return;
             }
 
