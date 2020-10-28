@@ -195,12 +195,10 @@ namespace UniverseIntruders
                     waitingForWave = true;
                     waveClock.Restart();
                     GameBorder.NextColor();
-                    Console.WriteLine("NEXT WAVE INBOUND");
                 }
                 else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
                 {
                     waitingForWave = false;
-                    Console.WriteLine("STARTING NEXT WAVE");
                     SpawnNextWave();
                 }
             }
