@@ -119,7 +119,7 @@ namespace UniverseIntruders
             // Yes apparently you can use curly braces with no if statement or anything
             // just to limit variable scope
 
-            // WAVE 1
+            //// WAVE 1
             {
                 List<Enemy> wave = new List<Enemy>();
                 Enemy enemy1 = new Enemy(new Vector2f(10f, 38), true);
@@ -136,7 +136,7 @@ namespace UniverseIntruders
                 wave.Add(enemy2);
                 EnemyRandom enemy3 = new EnemyRandom(gameView.Center, true);
                 enemy3.MinDistance = 5;
-                enemy3.MinDistance = 50;
+                enemy3.MaxDistance = 50;
                 wave.Add(enemy3);
                 waveList.Add(wave);
             }
@@ -161,6 +161,178 @@ namespace UniverseIntruders
                 enemy3.MoveSpeed = 15;
                 wave.Add(enemy3);
                 waveList.Add(wave);
+            }
+            // WAVE 3
+            {
+                List<Enemy> wave = new List<Enemy>();
+                Enemy enemy1 = new Enemy(new Vector2f(10f, 10), true);
+                enemy1.Movements.Add(new Vector2f(138f, 0f));
+                enemy1.Movements.Add(new Vector2f(-138f, 0f));
+                enemy1.MoveSpeed = 30;
+                enemy1.MoveDelay = 0;
+                wave.Add(enemy1);
+                Enemy enemy2 = new Enemy(new Vector2f(148f, 20), true);
+                enemy2.Movements.Add(new Vector2f(-138f, 0f));
+                enemy2.Movements.Add(new Vector2f(138f, 0f));
+                enemy2.MoveSpeed = 30;
+                enemy2.MoveDelay = 0;
+                wave.Add(enemy2);
+                EnemyRandom enemy3 = new EnemyRandom(new Vector2f(gameView.Center.X - 30, 75), true);
+                enemy3.MinDistance = 15;
+                enemy3.MaxDistance = 70;
+                enemy3.MoveDelay = 0;
+                wave.Add(enemy3);
+                EnemyRandom enemy4 = new EnemyRandom(new Vector2f(gameView.Center.X + 30, 75), true);
+                enemy4.MinDistance = 15;
+                enemy4.MaxDistance = 70;
+                enemy4.MoveDelay = 0;
+                wave.Add(enemy4);
+                waveList.Add(wave);
+            }
+            // WAVE 4
+            {
+                List<Enemy> wave = new List<Enemy>();
+                // Triangle shape
+                EnemyRandom enemy1 = new EnemyRandom(new Vector2f(gameView.Center.X, 75), true);
+                enemy1.MoveDelay = 0;
+                enemy1.MinDistance = 15;
+                enemy1.MaxDistance = 70;
+                enemy1.ShootDelay = 1000;
+                wave.Add(enemy1);
+                EnemyRandom enemy2 = new EnemyRandom(new Vector2f(gameView.Center.X + 10, 25), true);
+                enemy2.MoveDelay = 0;
+                enemy2.MinDistance = 15;
+                enemy2.MaxDistance = 70;
+                enemy1.ShootDelay = 1000;
+                wave.Add(enemy2);
+                EnemyRandom enemy3 = new EnemyRandom(new Vector2f(gameView.Center.X - 50, 75), true);
+                enemy3.MoveDelay = 0;
+                enemy3.MinDistance = 15;
+                enemy3.MaxDistance = 70;
+                enemy1.ShootDelay = 1000;
+                wave.Add(enemy3);
+                EnemyRandom enemy4 = new EnemyRandom(new Vector2f(gameView.Center.X + 50, 75), true);
+                enemy4.MoveDelay = 0;
+                enemy4.MinDistance = 15;
+                enemy4.MaxDistance = 70;
+                enemy1.ShootDelay = 1000;
+                wave.Add(enemy4);
+                // Move straight down left side
+                Enemy enemy5 = new Enemy(new Vector2f(20, 10), true);
+                enemy5.Movements.Add(new Vector2f(0, 200));
+                enemy5.MoveSpeed = 10;
+                enemy1.ShootDelay = 1000;
+                wave.Add(enemy5);
+                // Move straight down right side
+                Enemy enemy6 = new Enemy(new Vector2f(138, 10), true);
+                enemy6.Movements.Add(new Vector2f(0, 200));
+                enemy6.MoveSpeed = 10;
+                enemy1.ShootDelay = 1000;
+                wave.Add(enemy6);
+                waveList.Add(wave);
+            }
+            // WAVE 5
+            {
+                List<Enemy> wave = new List<Enemy>();
+                Enemy enemy1 = new Enemy(new Vector2f(10f, 10), true);
+                enemy1.Movements.Add(new Vector2f(138f, 0f));
+                enemy1.Movements.Add(new Vector2f(-138f, 0f));
+                enemy1.MoveSpeed = 30;
+                enemy1.MoveDelay = 0;
+                enemy1.ShootDelay = 300;
+                wave.Add(enemy1);
+                Enemy enemy2 = new Enemy(new Vector2f(148f, 10), true);
+                enemy2.Movements.Add(new Vector2f(-138f, 0f));
+                enemy2.Movements.Add(new Vector2f(138f, 0f));
+                enemy2.MoveSpeed = 30;
+                enemy2.MoveDelay = 0;
+                enemy2.ShootDelay = 300;
+                wave.Add(enemy2);
+                EnemyRandom enemy3 = new EnemyRandom(new Vector2f(gameView.Center.X, 75), true);
+                enemy3.MinDistance = 15;
+                enemy3.MaxDistance = 70;
+                enemy3.ShootDelay = 1000;
+                wave.Add(enemy3);
+                EnemyRandom enemy4 = new EnemyRandom(new Vector2f(gameView.Center.X - 30, 45), true);
+                enemy4.MinDistance = 15;
+                enemy4.MaxDistance = 70;
+                enemy4.ShootDelay = 1200;
+                wave.Add(enemy4);
+                EnemyRandom enemy5 = new EnemyRandom(new Vector2f(gameView.Center.X + 30, 45), true);
+                enemy5.MinDistance = 15;
+                enemy5.MaxDistance = 70;
+                enemy5.ShootDelay = 1200;
+                wave.Add(enemy5);
+                EnemyRandom enemy6 = new EnemyRandom(new Vector2f(gameView.Center.X - 60, 75), true);
+                enemy6.MinDistance = 15;
+                enemy6.MaxDistance = 70;
+                enemy6.ShootDelay = 1200;
+                wave.Add(enemy6);
+                EnemyRandom enemy7 = new EnemyRandom(new Vector2f(gameView.Center.X + 60, 75), true);
+                enemy7.MinDistance = 15;
+                enemy7.MaxDistance = 70;
+                enemy7.ShootDelay = 1200;
+                wave.Add(enemy7);
+                waveList.Add(wave);
+            }
+            // WAVE 6
+            {
+                List<Enemy> wave = new List<Enemy>();
+                // Row of enemies across top
+                int topRowCount = 10;
+                int topRowSpacing = 14;
+                int topRowOffest = 18;
+                for (int i = 0; i < topRowCount; i++)
+                {
+                    Enemy enemy = new Enemy(new Vector2f(i * topRowSpacing + topRowOffest, 10), true);
+                    enemy.Movements.Add(new Vector2f(-5, 0));
+                    enemy.Movements.Add(new Vector2f(0, 1));
+                    enemy.Movements.Add(new Vector2f(5, 0));
+                    enemy.Movements.Add(new Vector2f(0, 1));
+                    enemy.ShootDelay = 1000;
+                    enemy.MoveSpeed = 4;
+                    enemy.MoveDelay = 0;
+                    wave.Add(enemy);
+                }
+                // Triangle of random moving enemies
+                EnemyRandom enemy1 = new EnemyRandom(new Vector2f(gameView.Center.X - 30, 75), true);
+                enemy1.MinDistance = 15;
+                enemy1.MaxDistance = 70;
+                enemy1.MoveDelay = 0;
+                wave.Add(enemy1);
+                EnemyRandom enemy2 = new EnemyRandom(new Vector2f(gameView.Center.X + 30, 75), true);
+                enemy2.MinDistance = 15;
+                enemy2.MaxDistance = 70;
+                enemy2.MoveDelay = 0;
+                wave.Add(enemy2);
+                EnemyRandom enemy3 = new EnemyRandom(new Vector2f(gameView.Center.X, 50), true);
+                enemy3.MinDistance = 15;
+                enemy3.MaxDistance = 70;
+                enemy3.MoveDelay = 0;
+                wave.Add(enemy3);
+                waveList.Add(wave);
+            }
+            // WAVE 7, FINAL WAVE
+            {
+                List<Enemy> wave = new List<Enemy>();
+                int enemyCount = 8;
+                FloatRect spawnBounds = new FloatRect(10, 10, gameView.Size.X - 10, gameView.Size.Y - 60);
+                for (int i = 0; i < enemyCount; i++)
+                {
+                    EnemyRandom enemy = new EnemyRandom(RandomPointInRect(spawnBounds), true);
+                    enemy.MoveSpeed = 25;
+                    enemy.MoveDelay = 0;
+                    enemy.MinDistance = 15;
+                    enemy.MaxDistance = 70;
+                    wave.Add(enemy);
+                }
+                waveList.Add(wave);
+            }
+            Vector2f RandomPointInRect(FloatRect rect)
+            {
+                float x = (float)Game.Rand.NextDouble() * rect.Width + rect.Left;
+                float y = (float)Game.Rand.NextDouble() * rect.Height + rect.Top;
+                return new Vector2f(x, y);
             }
         }
 
