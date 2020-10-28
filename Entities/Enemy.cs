@@ -115,6 +115,10 @@ namespace UniverseIntruders
             }
             // If not moving and past delay between movements, start moving again
             else if (moveClock.ElapsedTime.AsMilliseconds() >= MoveDelay) isMoving = true;
+
+            // If a bit past the bottom of the screen trigger game over
+            if (Position.Y - TextureRect.Height > TargetView.Size.Y)
+                Game.GameOver = true;
         }
 
         // https://www.desmos.com/calculator/llcv91zhfi
