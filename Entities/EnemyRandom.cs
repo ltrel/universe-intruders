@@ -17,6 +17,7 @@ namespace UniverseIntruders
 
         public EnemyRandom(Vector2f startPosition, bool moveToStart) : base(startPosition, moveToStart)
         {
+            Boundaries = new FloatRect(0, 0, TargetView.Size.X, TargetView.Size.Y + TextureRect.Height - 30);
         }
 
         protected override void SetNextDestination()
