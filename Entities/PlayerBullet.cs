@@ -18,7 +18,7 @@ namespace UniverseIntruders
         public PlayerBullet(Vector2f position) : base(Resources.Textures["playerbullet"], Game.gameView)
         {
             Depth = 1;
-            MoveSpeed = 210f;
+            MoveSpeed = 220f;
             Position = position;
             SetDefaultCollider();
             CollisionTag = CollisionTag.PlayerBullet;
@@ -34,6 +34,7 @@ namespace UniverseIntruders
                 {
                     Sound destroyedSound = new Sound(Resources.Sounds["destroyed"]);
                     destroyedSound.Play();
+                    Game.SoundManager.Enqueue(destroyedSound);
                     enemy.EntityDestroyed = true;
                     this.EntityDestroyed = true;
                     Game.Score += 10;

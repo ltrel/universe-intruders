@@ -15,8 +15,6 @@ namespace UniverseIntruders
     static partial class Game
     {
         // Graphics stuff
-        //const int WindowWidth = 1280;
-        //const int WindowHeight = 800;
         const int WindowWidth = 1440;
         const int WindowHeight = 900;
         const int FPSLimit = 90;
@@ -29,6 +27,9 @@ namespace UniverseIntruders
         // Using view with low resolution scales everything up so the small sprites work
         public static View windowView { get; private set; }
         public static View gameView { get; private set; }
+
+        // Sound stuff
+        public static SoundManager SoundManager { get; private set; }
 
         // Entity stuff
         public static List<Entity> Entities { get; }
@@ -67,6 +68,8 @@ namespace UniverseIntruders
             gameView.Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
             // To start, assume the game is running at full frame rate
             FrameTime = 1f / FPSLimit;
+            // Sound
+            SoundManager = new SoundManager(256);
             // Entities
             Entities = new List<Entity>();
             EntityQueue = new Queue<Entity>();

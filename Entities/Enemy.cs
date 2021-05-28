@@ -173,6 +173,7 @@ namespace UniverseIntruders
         {
             Sound shootSound = new Sound(Resources.Sounds["enemyshoot"]);
             shootSound.Play();
+            Game.SoundManager.Enqueue(shootSound);
             Vector2f position = Position + new Vector2f(TextureRect.Width / 2, 10);
             EnemyBullet bullet = new EnemyBullet(position);
             Game.EntityQueue.Enqueue(bullet);

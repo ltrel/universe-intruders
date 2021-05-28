@@ -1,3 +1,7 @@
+// Timer.cs
+// Created on: 2020-10-27
+// Author: Leo Treloar
+
 using System;
 using SFML.System;
 
