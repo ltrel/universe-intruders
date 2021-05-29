@@ -54,9 +54,9 @@ namespace UniverseIntruders
             Listener.GlobalVolume = 20;
 
             Directory.SetCurrentDirectory(resourceDir);
-            MenuMusic = new Music("Sounds\\menu.ogg");
+            MenuMusic = new Music(Path.Join("Sounds", "menu.ogg"));
             MenuMusic.Loop = true;
-            GameMusic = new Music("Sounds\\music.ogg");
+            GameMusic = new Music(Path.Join("Sounds", "music.ogg"));
             GameMusic.Loop = true;
             AppIcon = new Image("icon.png");
             
