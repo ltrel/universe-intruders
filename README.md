@@ -1,4 +1,6 @@
 # Universe Intruders
+![Game Demo](./Resources/demo.gif)
+
 A simple Space Invaders-like game made with SFML.Net. I made this for my year 10 computing project in 2020, so don't expect the code quality to be anything incredible, I may work on it some more and improve it eventually if I have time to.
 
 ## Setup Guide
