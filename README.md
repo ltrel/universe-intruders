@@ -7,7 +7,7 @@ A simple Space Invaders-like game made with SFML.Net. I made this for my year 10
 You will need these things:
 - A computer. Preferably running Linux or Windows, I don't have a Mac to test it on 
 - Dotnet SDK with the CLI tools
-- SFML and CSFML libraries if you are running Linux. on Windows these are included with SFML.Net
+- SFML and CSFML libraries if you are running Linux. On Windows these are included with SFML.Net
 
 Then follow these steps:
 1. Restore the C# project dependencies: `dotnet restore`
