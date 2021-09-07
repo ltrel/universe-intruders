@@ -8,28 +8,30 @@ using System.Collections.Generic;
 
 namespace UniverseIntruders
 {
-    class SoundManager : Queue<Sound>
+    class SoundManager
     {
+        private Queue<Sound> soundQueue;
+
         private const int MaxSize = 256;
         private int capacity;
-        public SoundManager(int queueSize) : base(queueSize)
+
+        public SoundManager(int queueSize)
         {
             if (queueSize > MaxSize)
                 throw new ArgumentOutOfRangeException("queueSize", "No more than 256 sounds allowed");
-            else
-                capacity = queueSize;
+
+            capacity = queueSize;
+            soundQueue = new Queue<Sound>(queueSize);
         }
-        public new void Enqueue(Sound sound)
+
+        public void Play(Sound sound)
         {
-            // If there is room, just add the sound
-            if (Count < capacity)
-                base.Enqueue(sound);
-            // If there isn't, delete the oldest sound first
-            else
-            {
-                Dequeue().Dispose();
-                base.Enqueue(sound);
-            }
+            // If there are already too many sounds, dequeue one
+            if (soundQueue.Count >= capacity)
+                soundQueue.Dequeue().Dispose();
+
+            sound.Play();
+            soundQueue.Enqueue(sound);
         }
     }
 }

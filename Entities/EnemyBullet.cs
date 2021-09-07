@@ -29,8 +29,7 @@ namespace UniverseIntruders {
             if (CollisionWithTag(CollisionTag.Player) is Entity player)
             {
                 Sound destroyedSound = new Sound(Resources.Sounds["destroyed"]);
-                destroyedSound.Play();
-                Game.SoundManager.Enqueue(destroyedSound);
+                Game.SoundManager.Play(destroyedSound);
                 player.EntityDestroyed = true;
                 this.EntityDestroyed = true;
                 Game.GameOver = true;
