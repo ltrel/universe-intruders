@@ -206,7 +206,7 @@ namespace UniverseIntruders
                 }
             }
 
-            gameOverTimer.StartCondition = GameOver;
+            gameOverTimer.SetRunning(GameOver);
             if (gameOverTimer.Tick())
             {
                 inGame = false;

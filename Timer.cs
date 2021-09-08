@@ -9,42 +9,51 @@ namespace UniverseIntruders
 {
     class Timer
     {
-        public bool StartCondition { get; set; }
-        public bool TimerHasStarted { get; set; }
-        public bool hasFinished { get; private set; }
-        public int Length { get; }
+        private enum TimerState {
+            Idle,
+            Running,
+            Finished
+        }
+        private TimerState state = TimerState.Idle;
+        public int Duration { get; }
 
         private Clock clock;
 
-        public Timer(int length)
+        public Timer(int duration)
         {
-            Length = length;
-            StartCondition = false;
-            TimerHasStarted = false;
-            hasFinished = false;
+            Duration = duration;
             clock = new Clock();
         }
 
-        public bool Tick()
-        {
-            if (StartCondition && !TimerHasStarted && !hasFinished)
-            {
-                clock.Restart();
-                TimerHasStarted = true;
+        public bool Tick() {
+            switch (state) {
+                case TimerState.Idle:
+                    return false;
+
+                case TimerState.Running:
+                    if (clock.ElapsedTime.AsMilliseconds() >= Duration) {
+                        state = TimerState.Finished;
+                        return true;
+                    }
+                    return false;
+
+                case TimerState.Finished:
+                    return false;
+
+                default:
+                    throw new Exception("Invalid state");
             }
-            if (TimerHasStarted && clock.ElapsedTime.AsMilliseconds() >= Length)
-            {
-                TimerHasStarted = false;
-                hasFinished = true;
-                return true;
-            }
-            else
-                return false;
         }
 
-        public void Reset()
-        {
-            hasFinished = false;
+        public void SetRunning(bool startRunning) {
+            if (state == TimerState.Idle && startRunning) {
+                clock.Restart();
+                state = TimerState.Running;
+            }
+        } 
+
+        public void Reset() {
+            state = TimerState.Idle;
         }
     }
 }
