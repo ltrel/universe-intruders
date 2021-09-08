@@ -39,8 +39,7 @@ namespace UniverseIntruders
         // Game stuff
         public static int Score { get; set; }
         private static int waveDelay = 3000;
-        private static bool waitingForWave = false;
-        private static Clock waveClock;
+        private static Timer waveTimer = new Timer(waveDelay);
         public static bool GameOver { get; set; }
 
         private static int gameOverScreenDelay = 2500;
@@ -86,7 +85,6 @@ namespace UniverseIntruders
             GenerateWaves();
             MenuSetup();
             frameTimeClock = new Clock();
-            waveClock = new Clock();
 
             // Game loop
             while (window.IsOpen)
@@ -192,17 +190,13 @@ namespace UniverseIntruders
             // If menu or game over screen is open skip this stuff
             if (inGame)
             {
-                // If there are no enemies and not waiting for next wave
-                if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave)
+                // If there are no enemies
+                waveTimer.SetRunning(Entities.FindIndex(e => e is Enemy) == -1);
+                if (waveTimer.Tick())
                 {
-                    waitingForWave = true;
-                    waveClock.Restart();
                     GameBorder.NextColor();
-                }
-                else if (waitingForWave && waveClock.ElapsedTime.AsMilliseconds() > waveDelay)
-                {
-                    waitingForWave = false;
                     SpawnNextWave();
+                    waveTimer.Reset();
                 }
             }
 
@@ -239,7 +233,6 @@ namespace UniverseIntruders
         {
             GameOver = false;
             gameOverTimer.Reset();
-            waveClock.Restart();
             GenerateWaves();
             Score = 0;
             currentWave = 0;
