@@ -11,8 +11,7 @@ namespace UniverseIntruders
     {
         private enum TimerState {
             Idle,
-            Running,
-            Finished
+            Running
         }
         private TimerState state = TimerState.Idle;
         public int Duration { get; }
@@ -32,12 +31,9 @@ namespace UniverseIntruders
 
                 case TimerState.Running:
                     if (clock.ElapsedTime.AsMilliseconds() >= Duration) {
-                        state = TimerState.Finished;
+                        state = TimerState.Idle;
                         return true;
                     }
-                    return false;
-
-                case TimerState.Finished:
                     return false;
 
                 default:

@@ -196,7 +196,6 @@ namespace UniverseIntruders
                 {
                     GameBorder.NextColor();
                     SpawnNextWave();
-                    waveTimer.Reset();
                 }
             }
 
@@ -206,6 +205,7 @@ namespace UniverseIntruders
                 inGame = false;
                 SaveScore();
                 GameOverScreenSetup();
+                GameOver = false;
             }
         }
 
@@ -231,8 +231,6 @@ namespace UniverseIntruders
 
         private static void ResetGame()
         {
-            GameOver = false;
-            gameOverTimer.Reset();
             GenerateWaves();
             Score = 0;
             currentWave = 0;
