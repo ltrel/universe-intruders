@@ -7,49 +7,31 @@ using SFML.System;
 
 namespace UniverseIntruders
 {
+    public enum TimerState {
+        Running,
+        Finished
+    }
+
     class Timer
     {
-        private enum TimerState {
-            Idle,
-            Running
-        }
-        private TimerState state = TimerState.Idle;
+        public TimerState State { get; private set; }
         public int Duration { get; }
-
         private Clock clock;
+        private Action callback;
 
-        public Timer(int duration)
+        public Timer(int duration, Action callback)
         {
             Duration = duration;
             clock = new Clock();
+            State = TimerState.Running;
+            this.callback = callback;
         }
 
-        public bool Tick() {
-            switch (state) {
-                case TimerState.Idle:
-                    return false;
-
-                case TimerState.Running:
-                    if (clock.ElapsedTime.AsMilliseconds() >= Duration) {
-                        state = TimerState.Idle;
-                        return true;
-                    }
-                    return false;
-
-                default:
-                    throw new Exception("Invalid state");
+        public void Poll() {
+            if (State == TimerState.Running && clock.ElapsedTime.AsMilliseconds() >= Duration) {
+                callback();
+                State = TimerState.Finished;
             }
-        }
-
-        public void SetRunning(bool startRunning) {
-            if (state == TimerState.Idle && startRunning) {
-                clock.Restart();
-                state = TimerState.Running;
-            }
-        } 
-
-        public void Reset() {
-            state = TimerState.Idle;
         }
     }
 }

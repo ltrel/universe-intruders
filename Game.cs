@@ -39,11 +39,10 @@ namespace UniverseIntruders
         // Game stuff
         public static int Score { get; set; }
         private static int waveDelay = 3000;
-        private static Timer waveTimer = new Timer(waveDelay);
-        public static bool GameOver { get; set; }
-
+        private static bool waitingForWave = false;
         private static int gameOverScreenDelay = 2500;
-        private static Timer gameOverTimer = new Timer(gameOverScreenDelay);
+        public static bool GameOver { get; set; }
+        public static TimerManager TimerManager { get; }
 
         // Misc stuff
         public static Random Rand { get; private set; }
@@ -74,6 +73,7 @@ namespace UniverseIntruders
             EntityQueue = new Queue<Entity>();
             Texts = new List<Text>();
             // Misc
+            TimerManager = new TimerManager();
             Rand = new Random();
             BorderColor = GameBorder.Colors[0];
 
@@ -95,6 +95,7 @@ namespace UniverseIntruders
                 frameTimeClock.Restart();
 
                 window.DispatchEvents();
+                TimerManager.Poll();
                 UpdateEntities();
                 GameLogic();
                 RenderFrame();
@@ -190,22 +191,24 @@ namespace UniverseIntruders
             // If menu or game over screen is open skip this stuff
             if (inGame)
             {
-                // If there are no enemies
-                waveTimer.SetRunning(Entities.FindIndex(e => e is Enemy) == -1);
-                if (waveTimer.Tick())
-                {
-                    GameBorder.NextColor();
-                    SpawnNextWave();
+                // If there are no enemies and we aren't already waiting for a wave
+                if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave) {
+                    waitingForWave = true;
+                    TimerManager.Add(new Timer(waveDelay, () => {
+                        GameBorder.NextColor();
+                        SpawnNextWave();
+                        waitingForWave = false;
+                    }));
                 }
             }
 
-            gameOverTimer.SetRunning(GameOver);
-            if (gameOverTimer.Tick())
-            {
-                inGame = false;
-                SaveScore();
-                GameOverScreenSetup();
+            if (GameOver) {
                 GameOver = false;
+                TimerManager.Add(new Timer(gameOverScreenDelay, () => {
+                    inGame = false;
+                    SaveScore();
+                    GameOverScreenSetup();
+                }));
             }
         }
 
