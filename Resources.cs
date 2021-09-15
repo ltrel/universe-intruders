@@ -20,7 +20,8 @@ namespace UniverseIntruders
         public static Music MenuMusic { get; }
         public static Music GameMusic { get; }
 
-        static Resources() {
+        static Resources()
+        {
             string baseDir = Environment.CurrentDirectory;
             string resourceDir = Path.Join(baseDir, "Resources");
 
@@ -59,15 +60,17 @@ namespace UniverseIntruders
             GameMusic = new Music(Path.Join("Sounds", "music.ogg"));
             GameMusic.Loop = true;
             AppIcon = new Image("icon.png");
-            
+
             // Move back to the starting directory when finished
             Directory.SetCurrentDirectory(baseDir);
         }
 
-        public static void SoundCleanup() {
+        public static void SoundCleanup()
+        {
             MenuMusic.Dispose();
             GameMusic.Dispose();
-            foreach(KeyValuePair<string, SoundBuffer> sound in Sounds) {
+            foreach (KeyValuePair<string, SoundBuffer> sound in Sounds)
+            {
                 sound.Value.Dispose();
             }
         }

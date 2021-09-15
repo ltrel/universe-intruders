@@ -11,11 +11,14 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
-namespace UniverseIntruders {
-    class EnemyBullet : Entity {
+namespace UniverseIntruders
+{
+    class EnemyBullet : Entity
+    {
         public float MoveSpeed { get; set; }
 
-        public EnemyBullet(Vector2f position) : base(Resources.Textures["enemybullet"], Game.gameView) {
+        public EnemyBullet(Vector2f position) : base(Resources.Textures["enemybullet"], Game.gameView)
+        {
             Depth = 1;
             MoveSpeed = 180f;
             Position = position;
@@ -24,7 +27,7 @@ namespace UniverseIntruders {
         }
         public override void Update()
         {
-            Position += new Vector2f(0, MoveSpeed*Game.FrameTime);
+            Position += new Vector2f(0, MoveSpeed * Game.FrameTime);
             // If colliding with the player destroy the player and this bullet
             if (CollisionWithTag(CollisionTag.Player) is Entity player)
             {

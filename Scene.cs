@@ -8,11 +8,12 @@ using SFML.Window;
 
 namespace UniverseIntruders
 {
-    abstract class Scene {
-      public EventHandler<KeyEventArgs> keyEventHandler { get; }
-      public abstract void OnEnter();
-      public abstract void OnExit();
-      public abstract void Update(float deltaTime);
-      public abstract void Draw(RenderWindow window);
+    abstract class Scene
+    {
+        public EventHandler<KeyEventArgs> keyEventHandler { get; }
+        public abstract void OnEnter();
+        public abstract void OnExit();
+        public abstract void Update(float deltaTime);
+        public abstract void Draw(RenderWindow window);
     }
 }

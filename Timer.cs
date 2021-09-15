@@ -7,7 +7,8 @@ using SFML.System;
 
 namespace UniverseIntruders
 {
-    public enum TimerState {
+    public enum TimerState
+    {
         Running,
         Finished
     }
@@ -27,8 +28,10 @@ namespace UniverseIntruders
             this.callback = callback;
         }
 
-        public void Poll() {
-            if (State == TimerState.Running && clock.ElapsedTime.AsMilliseconds() >= Duration) {
+        public void Poll()
+        {
+            if (State == TimerState.Running && clock.ElapsedTime.AsMilliseconds() >= Duration)
+            {
                 callback();
                 State = TimerState.Finished;
             }

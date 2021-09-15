@@ -11,7 +11,8 @@ using SFML.Window;
 
 namespace UniverseIntruders
 {
-    enum CollisionTag {
+    enum CollisionTag
+    {
         None,
         Player,
         PlayerBullet,

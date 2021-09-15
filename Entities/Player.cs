@@ -28,7 +28,7 @@ namespace UniverseIntruders
             Game.window.KeyPressed += OnKeyDown;
             // Just use the bottom two rows of pixels for collision detection
             SetDefaultCollider();
-            CollisionRect = new IntRect(CollisionRect.Left, CollisionRect.Top+3, CollisionRect.Width, 2);
+            CollisionRect = new IntRect(CollisionRect.Left, CollisionRect.Top + 3, CollisionRect.Width, 2);
             Initialize();
         }
         public override void Initialize()
@@ -55,13 +55,15 @@ namespace UniverseIntruders
         {
             // If entity is destroyed or this entity is not in the list, don't do anything
             if (EntityDestroyed || !Game.Entities.Contains(this)) return;
-            switch(keyEventArgs.Code) {
+            switch (keyEventArgs.Code)
+            {
                 // Player shooting
                 case Keyboard.Key.Space:
-                    if(shootClock.ElapsedTime.AsMilliseconds() >= shootTime) {
+                    if (shootClock.ElapsedTime.AsMilliseconds() >= shootTime)
+                    {
                         Sound shootSound = new Sound(Resources.Sounds["playershoot"]);
                         Game.SoundManager.Play(shootSound);
-                        Vector2f position = Position + new Vector2f(TextureRect.Width/2, -10);
+                        Vector2f position = Position + new Vector2f(TextureRect.Width / 2, -10);
                         PlayerBullet bullet = new PlayerBullet(position);
                         Game.EntityQueue.Enqueue(bullet);
                         shootClock.Restart();

@@ -192,9 +192,11 @@ namespace UniverseIntruders
             if (inGame)
             {
                 // If there are no enemies and we aren't already waiting for a wave
-                if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave) {
+                if (Entities.FindIndex(e => e is Enemy) == -1 && !waitingForWave)
+                {
                     waitingForWave = true;
-                    TimerManager.Add(new Timer(waveDelay, () => {
+                    TimerManager.Add(new Timer(waveDelay, () =>
+                    {
                         GameBorder.NextColor();
                         SpawnNextWave();
                         waitingForWave = false;
@@ -202,9 +204,11 @@ namespace UniverseIntruders
                 }
             }
 
-            if (GameOver) {
+            if (GameOver)
+            {
                 GameOver = false;
-                TimerManager.Add(new Timer(gameOverScreenDelay, () => {
+                TimerManager.Add(new Timer(gameOverScreenDelay, () =>
+                {
                     inGame = false;
                     SaveScore();
                     GameOverScreenSetup();
