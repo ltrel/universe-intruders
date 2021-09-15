@@ -10,7 +10,7 @@ namespace UniverseIntruders
 {
     abstract class Scene
     {
-        public EventHandler<KeyEventArgs> keyEventHandler { get; }
+        public WindowEventTable EventHandlers { get; protected set; } = new WindowEventTable();
         public abstract void OnEnter();
         public abstract void OnExit();
         public abstract void Update(float deltaTime);

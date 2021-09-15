@@ -19,10 +19,15 @@ namespace UniverseIntruders
             VideoMode mode = new VideoMode(1280, 720);
             window = new RenderWindow(mode, "Testing");
             window.SetFramerateLimit(60);
+            window.SetKeyRepeatEnabled(false);
 
             testScene = new TestScene();
 
+            // Create a scene manager and give it access to the window's events
             sceneManager = new SceneManager();
+            window.KeyPressed += sceneManager.EventHandlers.KeyPressed;
+            window.Closed += sceneManager.EventHandlers.Closed;
+
             int sceneId = sceneManager.Add(testScene);
             sceneManager.Enter(sceneId);
         }

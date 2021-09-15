@@ -11,6 +11,7 @@ namespace UniverseIntruders
 {
     class SceneManager
     {
+        public WindowEventTable EventHandlers { get; private set; }
         private Dictionary<int, Scene> scenes;
         private Scene currentScene;
         private int nextSceneId = 0;
@@ -18,6 +19,8 @@ namespace UniverseIntruders
         public SceneManager()
         {
             scenes = new Dictionary<int, Scene>();
+            EventHandlers = new WindowEventTable();
+            EventSetup();
         }
 
         public int Add(Scene scene)
@@ -52,6 +55,14 @@ namespace UniverseIntruders
         {
             if (currentScene == null) return;
             currentScene.Draw(window);
+        }
+
+        private void EventSetup()
+        {
+            // Tell all our event handlers to pass their events on to the
+            // currently active scene's event handlers
+            EventHandlers.KeyPressed = (sender, args) => currentScene.EventHandlers.KeyPressed(sender, args);
+            EventHandlers.Closed = (sender, args) => currentScene.EventHandlers.Closed(sender, args);
         }
     }
 }
