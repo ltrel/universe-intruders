@@ -65,8 +65,8 @@ namespace UniverseIntruders
                         Sound shootSound = new Sound(Resources.Sounds["playershoot"]);
                         Scene.SoundManager.Play(shootSound);
                         Vector2f position = Position + new Vector2f(TextureRect.Width / 2, -10);
-                        // PlayerBullet bullet = new PlayerBullet(position);
-                        // Game.EntityQueue.Enqueue(bullet);
+                        PlayerBullet bullet = new PlayerBullet(position, TargetView, Scene);
+                        Scene.EntityManager.AddEntity(bullet);
                         shootClock.Restart();
                     }
                     break;
