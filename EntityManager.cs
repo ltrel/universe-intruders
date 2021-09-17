@@ -24,9 +24,9 @@ namespace UniverseIntruders
             entities.Sort((e1, e2) => { return e2.Depth - e1.Depth; });
         }
 
-        public IEnumerable<Entity> GetEnumerable()
+        public ReadOnlyCollection<Entity> ListEntities()
         {
-            return entities.AsEnumerable();
+            return entities.AsReadOnly();
         }
     }
 }

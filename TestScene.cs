@@ -32,7 +32,7 @@ namespace UniverseIntruders
 
         public override void Update(float deltaTime)
         {
-            foreach (Entity entity in EntityManager.GetEnumerable())
+            foreach (Entity entity in EntityManager.ListEntities())
             {
                 entity.Update(deltaTime);
             }
@@ -43,7 +43,7 @@ namespace UniverseIntruders
         public override void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
-            foreach (Entity entity in EntityManager.GetEnumerable())
+            foreach (Entity entity in EntityManager.ListEntities())
             {
                 entity.Draw(window);
             }
