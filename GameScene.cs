@@ -36,8 +36,7 @@ namespace UniverseIntruders
             {
                 entity.Update(deltaTime);
             }
-            fps = 1f / deltaTime;
-            Console.WriteLine(fps);
+            Console.WriteLine(EntityManager.List().Count);
         }
 
         public override void Draw(RenderWindow window)

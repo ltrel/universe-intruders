@@ -42,7 +42,7 @@ namespace UniverseIntruders
             // }
             // If bullet is off screen destroy it
             if (Position.Y + TextureRect.Height < 0)
-                EntityDestroyed = true;
+                Destroy();
         }
     }
 }

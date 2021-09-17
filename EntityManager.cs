@@ -26,6 +26,7 @@ namespace UniverseIntruders
 
         public ReadOnlyCollection<Entity> List()
         {
+            entities.RemoveAll(e => e.PendingDeletion);
             return entities.AsReadOnly();
         }
     }
