@@ -13,7 +13,6 @@ namespace UniverseIntruders
     class GameScene : Scene
     {
         private View view = new View(new FloatRect(0, 0, 320, 200));
-        private float fps;
 
         public GameScene()
         {
