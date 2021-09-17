@@ -13,6 +13,7 @@ namespace UniverseIntruders
 {
     class Entity : Sprite
     {
+        public WindowEventTable EventHandlers { get; protected set; } = new WindowEventTable();
         public View TargetView { get; protected set; }
         public Scene Scene { get; }
         public IntRect CollisionRect { get; set; }

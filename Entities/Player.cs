@@ -26,7 +26,7 @@ namespace UniverseIntruders
             // Set position to the horizontal center of the screen near the bottom
             Position = TargetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
             Position = new Vector2f(Position.X, TargetView.Size.Y - 10);
-            Scene.EventHandlers.KeyPressed += OnKeyDown;
+            EventHandlers.KeyPressed += OnKeyDown;
             // Just use the bottom two rows of pixels for collision detection
             SetDefaultCollider();
             CollisionRect = new IntRect(CollisionRect.Left, CollisionRect.Top + 3, CollisionRect.Width, 2);
@@ -54,8 +54,6 @@ namespace UniverseIntruders
         }
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
-            // If entity is destroyed or this entity is not in the list, don't do anything
-            if (PendingDeletion) return;
             switch (keyEventArgs.Code)
             {
                 // Player shooting
@@ -69,6 +67,9 @@ namespace UniverseIntruders
                         Scene.EntityManager.Add(bullet);
                         shootClock.Restart();
                     }
+                    break;
+                case Keyboard.Key.Backslash:
+                    Destroy();
                     break;
             }
         }
