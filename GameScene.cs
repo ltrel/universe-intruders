@@ -18,7 +18,7 @@ namespace UniverseIntruders
         public GameScene()
         {
             Player player = new Player(view, this);
-            EntityManager.AddEntity(player);
+            EntityManager.Add(player);
         }
 
         public override void OnEnter()
@@ -32,7 +32,7 @@ namespace UniverseIntruders
 
         public override void Update(float deltaTime)
         {
-            foreach (Entity entity in EntityManager.ListEntities())
+            foreach (Entity entity in EntityManager.List())
             {
                 entity.Update(deltaTime);
             }
@@ -43,7 +43,7 @@ namespace UniverseIntruders
         public override void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
-            foreach (Entity entity in EntityManager.ListEntities())
+            foreach (Entity entity in EntityManager.List())
             {
                 entity.Draw(window);
             }

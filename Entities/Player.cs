@@ -55,7 +55,7 @@ namespace UniverseIntruders
         private void OnKeyDown(object sender, SFML.Window.KeyEventArgs keyEventArgs)
         {
             // If entity is destroyed or this entity is not in the list, don't do anything
-            if (EntityDestroyed || !Scene.EntityManager.ListEntities().Contains(this)) return;
+            if (EntityDestroyed || !Scene.EntityManager.List().Contains(this)) return;
             switch (keyEventArgs.Code)
             {
                 // Player shooting
@@ -66,7 +66,7 @@ namespace UniverseIntruders
                         Scene.SoundManager.Play(shootSound);
                         Vector2f position = Position + new Vector2f(TextureRect.Width / 2, -10);
                         PlayerBullet bullet = new PlayerBullet(position, TargetView, Scene);
-                        Scene.EntityManager.AddEntity(bullet);
+                        Scene.EntityManager.Add(bullet);
                         shootClock.Restart();
                     }
                     break;

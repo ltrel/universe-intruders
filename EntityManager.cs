@@ -16,7 +16,7 @@ namespace UniverseIntruders
     {
         private List<Entity> entities = new List<Entity>();
 
-        public void AddEntity(Entity entity)
+        public void Add(Entity entity)
         {
             entities.Add(entity);
             entity.Initialize();
@@ -24,7 +24,7 @@ namespace UniverseIntruders
             entities.Sort((e1, e2) => { return e2.Depth - e1.Depth; });
         }
 
-        public ReadOnlyCollection<Entity> ListEntities()
+        public ReadOnlyCollection<Entity> List()
         {
             return entities.AsReadOnly();
         }
