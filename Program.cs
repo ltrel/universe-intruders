@@ -11,7 +11,7 @@ namespace UniverseIntruders
         static void Main(string[] args)
         {
             // Game.Run();
-            NewGame game = new NewGame();
+            Game game = new Game();
             game.Run();
         }
     }

@@ -1,4 +1,4 @@
-// TestScene.cs
+// GameScene.cs
 // Created on: 2021-09-15
 // Author: Leo Treloar
 
@@ -10,12 +10,12 @@ using SFML.Window;
 
 namespace UniverseIntruders
 {
-    class TestScene : Scene
+    class GameScene : Scene
     {
         private View view = new View(new FloatRect(0, 0, 320, 200));
         private float fps;
 
-        public TestScene()
+        public GameScene()
         {
             Player player = new Player(view, this);
             EntityManager.AddEntity(player);
