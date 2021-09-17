@@ -14,25 +14,23 @@ namespace UniverseIntruders
     class Entity : Sprite
     {
         public View TargetView { get; protected set; }
+        public Scene Scene { get; }
         public IntRect CollisionRect { get; set; }
         public CollisionTag CollisionTag { get; set; }
         public bool EntityDestroyed { get; set; }
         public int Depth { get; set; }
 
-        public Entity(Texture texture, View targetView) : base(texture)
+        public Entity(Texture texture, View targetView, Scene scene) : base(texture)
         {
             this.TargetView = targetView;
+            Scene = scene;
             EntityDestroyed = false;
             Depth = 0;
         }
-        // The entity won't be rendered or run Update() until this is called
-        public virtual void Initialize()
-        {
-            Game.Entities.Add(this);
-            // Sort the list so that entities with the highest depth values come first
-            Game.Entities.Sort((e1, e2) => { return e2.Depth - e1.Depth; });
-        }
-        public virtual void Update() { }
+
+        // This is called when the entity is added to an EntityManager
+        public virtual void Initialize() { }
+        public virtual void Update(float deltaTime) { }
 
         // Calculate the bounding box of the collider in global coordinates
         public FloatRect GetCollisionBounds()
@@ -49,16 +47,24 @@ namespace UniverseIntruders
         // Use the entire bounding rectangle of the sprite for collisions
         protected void SetDefaultCollider() { CollisionRect = (IntRect)GetLocalBounds(); }
 
-        protected Entity CollisionWithTag(CollisionTag tag)
+        // protected Entity CollisionWithTag(CollisionTag tag)
+        // {
+        //     List<Entity> entities = Game.Entities.FindAll(e => e.CollisionTag == tag);
+        //     Entity collidingEntity = null;
+        //     foreach (Entity entity in entities)
+        //     {
+        //         if (Collision.IsRectInRect(this.GetCollisionBounds(), entity.GetCollisionBounds()))
+        //             collidingEntity = entity;
+        //     }
+        //     return collidingEntity;
+        // }
+
+        public void Draw(RenderWindow window)
         {
-            List<Entity> entities = Game.Entities.FindAll(e => e.CollisionTag == tag);
-            Entity collidingEntity = null;
-            foreach (Entity entity in entities)
-            {
-                if (Collision.IsRectInRect(this.GetCollisionBounds(), entity.GetCollisionBounds()))
-                    collidingEntity = entity;
-            }
-            return collidingEntity;
+            View originalView = window.GetView();
+            window.SetView(TargetView);
+            window.Draw(this);
+            window.SetView(originalView);
         }
     }
 }

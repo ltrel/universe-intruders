@@ -11,6 +11,9 @@ namespace UniverseIntruders
     abstract class Scene
     {
         public WindowEventTable EventHandlers { get; protected set; } = new WindowEventTable();
+        public EntityManager EntityManager { get; protected set; } = new EntityManager();
+        public SoundManager SoundManager { get; protected set; } = new SoundManager(128);
+
         public abstract void OnEnter();
         public abstract void OnExit();
         public abstract void Update(float deltaTime);

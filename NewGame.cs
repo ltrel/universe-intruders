@@ -16,7 +16,7 @@ namespace UniverseIntruders
 
         public NewGame()
         {
-            VideoMode mode = new VideoMode(1280, 720);
+            VideoMode mode = new VideoMode(1440, 900);
             window = new RenderWindow(mode, "Testing");
             window.SetFramerateLimit(60);
             window.SetKeyRepeatEnabled(false);
