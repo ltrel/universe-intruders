@@ -15,6 +15,9 @@ namespace UniverseIntruders
     class EntityManager
     {
         private List<Entity> entities = new List<Entity>();
+        private List<Entity> pendingAdds = new List<Entity>();
+        private List<Entity> pendingRemoves = new List<Entity>();
+
         private WindowEventTable eventDestinations;
 
         public EntityManager(WindowEventTable eventDestinations)
@@ -24,20 +27,37 @@ namespace UniverseIntruders
 
         public void Add(Entity entity)
         {
-            entities.Add(entity);
-            BindEvents(entity);
-            entity.Initialize();
-            // Sort the list so that entities with the highest depth values come first
-            entities.Sort((e1, e2) => { return e2.Depth - e1.Depth; });
+            pendingAdds.Add(entity);
+        }
+
+        public void Remove(Entity entity)
+        {
+            pendingRemoves.Add(entity);
         }
 
         public ReadOnlyCollection<Entity> List()
         {
-            foreach (Entity entity in entities.Where(e => e.PendingDeletion))
+            // Handle pending entity additions
+            foreach (Entity entity in pendingAdds)
+            {
+                entities.Add(entity);
+                BindEvents(entity);
+                entity.Initialize();
+            }
+            if (pendingAdds.Count > 0)
+            {
+                entities.Sort((e1, e2) => { return e2.Depth - e1.Depth; });
+                pendingAdds.Clear();
+            }
+
+            // Handle pending entity deletions
+            foreach (Entity entity in pendingRemoves)
             {
                 UnbindEvents(entity);
+                entities.Remove(entity);
             }
-            entities.RemoveAll(e => e.PendingDeletion);
+            pendingRemoves.Clear();
+
             return entities.AsReadOnly();
         }
 

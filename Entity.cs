@@ -18,14 +18,12 @@ namespace UniverseIntruders
         public Scene Scene { get; }
         public IntRect CollisionRect { get; set; }
         public CollisionTag CollisionTag { get; set; }
-        public bool PendingDeletion { get; set; }
         public int Depth { get; set; }
 
         public Entity(Texture texture, View targetView, Scene scene) : base(texture)
         {
             this.TargetView = targetView;
             Scene = scene;
-            PendingDeletion = false;
             Depth = 0;
         }
 
@@ -70,7 +68,7 @@ namespace UniverseIntruders
 
         public void Destroy()
         {
-            PendingDeletion = true;
+            Scene.EntityManager.Remove(this);
         }
     }
 }
