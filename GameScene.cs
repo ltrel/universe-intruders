@@ -35,7 +35,6 @@ namespace UniverseIntruders
             {
                 entity.Update(deltaTime);
             }
-            Console.WriteLine(EntityManager.List().Count);
         }
 
         public override void Draw(RenderWindow window)
