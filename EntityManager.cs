@@ -18,11 +18,11 @@ namespace UniverseIntruders
         private List<Entity> pendingAdds = new List<Entity>();
         private List<Entity> pendingRemoves = new List<Entity>();
 
-        private WindowEventTable eventDestinations;
+        private WindowEventTable eventHandlers;
 
-        public EntityManager(WindowEventTable eventDestinations)
+        public EntityManager(WindowEventTable eventHandlers)
         {
-            this.eventDestinations = eventDestinations;
+            this.eventHandlers = eventHandlers;
         }
 
         public void Add(Entity entity)
@@ -69,14 +69,14 @@ namespace UniverseIntruders
 
         private void BindEvents(Entity entity)
         {
-            eventDestinations.KeyPressed += entity.EventHandlers.KeyPressed;
-            eventDestinations.Closed += entity.EventHandlers.Closed;
+            eventHandlers.KeyPressed += entity.EventHandlers.KeyPressed;
+            eventHandlers.Closed += entity.EventHandlers.Closed;
         }
 
         private void UnbindEvents(Entity entity)
         {
-            eventDestinations.KeyPressed -= entity.EventHandlers.KeyPressed;
-            eventDestinations.Closed -= entity.EventHandlers.Closed;
+            eventHandlers.KeyPressed -= entity.EventHandlers.KeyPressed;
+            eventHandlers.Closed -= entity.EventHandlers.Closed;
         }
     }
 }
