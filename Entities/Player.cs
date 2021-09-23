@@ -18,7 +18,7 @@ namespace UniverseIntruders
         private Clock shootClock;
         private int shootTime = 400;
 
-        public Player(View view, Scene scene) : base(Resources.Textures["player"], view, scene)
+        public Player(Scene scene) : base(Resources.Textures["player"], scene)
         {
             CollisionTag = CollisionTag.Player;
             Depth = 0;
@@ -63,7 +63,7 @@ namespace UniverseIntruders
                         Sound shootSound = new Sound(Resources.Sounds["playershoot"]);
                         Scene.SoundManager.Play(shootSound);
                         Vector2f position = Position + new Vector2f(TextureRect.Width / 2, -10);
-                        PlayerBullet bullet = new PlayerBullet(position, TargetView, Scene);
+                        PlayerBullet bullet = new PlayerBullet(position, Scene);
                         Scene.EntityManager.Add(bullet);
                         shootClock.Restart();
                     }

@@ -15,7 +15,7 @@ namespace UniverseIntruders
     {
         public float MoveSpeed { get; set; }
 
-        public PlayerBullet(Vector2f position, View view, Scene scene) : base(Resources.Textures["playerbullet"], view, scene)
+        public PlayerBullet(Vector2f position, Scene scene) : base(Resources.Textures["playerbullet"], scene)
         {
             Depth = 1;
             MoveSpeed = 220f;

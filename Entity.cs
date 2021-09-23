@@ -20,9 +20,9 @@ namespace UniverseIntruders
         public CollisionTag CollisionTag { get; set; }
         public int Depth { get; set; }
 
-        public Entity(Texture texture, View targetView, Scene scene) : base(texture)
+        public Entity(Texture texture, Scene scene) : base(texture)
         {
-            this.TargetView = targetView;
+            this.TargetView = scene.Views["default"];
             Scene = scene;
             Depth = 0;
         }
