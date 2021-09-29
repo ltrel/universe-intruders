@@ -15,11 +15,11 @@ namespace UniverseIntruders
         public EntityManager EntityManager { get; protected set; }
         public SoundManager SoundManager { get; protected set; } = new SoundManager(128);
         public Dictionary<string, View> Views { get; protected set; } = new Dictionary<string, View>();
+        public View DefaultView { get; protected set; }
 
-        public Scene(View defaultView)
+        public Scene()
         {
             EntityManager = new EntityManager(EventHandlers);
-            Views.Add("default", defaultView);
         }
 
         public abstract void OnEnter();

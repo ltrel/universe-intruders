@@ -22,7 +22,7 @@ namespace UniverseIntruders
 
         public Entity(Texture texture, Scene scene) : base(texture)
         {
-            this.TargetView = scene.Views["default"];
+            this.TargetView = scene.DefaultView;
             Scene = scene;
             Depth = 0;
         }

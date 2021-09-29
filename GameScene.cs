@@ -12,8 +12,9 @@ namespace UniverseIntruders
 {
     class GameScene : Scene
     {
-        public GameScene() : base(new View(new FloatRect(0, 0, 320, 200)))
+        public GameScene()
         {
+            DefaultView = new View(new FloatRect(0,0, 320, 200));
             Player player = new Player(this);
             EntityManager.Add(player);
         }
