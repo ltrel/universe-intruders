@@ -14,12 +14,17 @@ namespace UniverseIntruders
     {
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
-            Views.Add("gameView", new View(new FloatRect(0,0, 158, 200)));
+            Views.Add("gameView", new View(new FloatRect(0, 0, 158, 200)));
             Views["gameView"].Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
+            Views.Add("windowView", new View(new FloatRect(0, 0, 320, 200)));
 
             Player player = new Player(this);
             player.TargetView = Views["gameView"];
             EntityManager.Add(player);
+
+            GameBorder borders = new GameBorder(this);
+            borders.TargetView = Views["windowView"];
+            EntityManager.Add(borders);
         }
 
         public override void OnEnter()
