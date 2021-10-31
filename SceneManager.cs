@@ -12,12 +12,14 @@ namespace UniverseIntruders
     class SceneManager
     {
         public WindowEventTable EventHandlers { get; private set; }
+        public RenderWindow Window { get; }
         private Dictionary<int, Scene> scenes;
         private Scene currentScene;
         private int nextSceneId = 0;
 
-        public SceneManager()
+        public SceneManager(RenderWindow window)
         {
+            Window = window;
             scenes = new Dictionary<int, Scene>();
             EventHandlers = new WindowEventTable();
             EventSetup();
@@ -51,10 +53,10 @@ namespace UniverseIntruders
             currentScene.Update(deltaTime);
         }
 
-        public void Draw(RenderWindow window)
+        public void Draw()
         {
             if (currentScene == null) return;
-            currentScene.Draw(window);
+            currentScene.Draw();
         }
 
         private void EventSetup()

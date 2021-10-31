@@ -12,10 +12,13 @@ namespace UniverseIntruders
 {
     class GameScene : Scene
     {
-        public GameScene()
+        public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
-            DefaultView = new View(new FloatRect(0,0, 320, 200));
+            Views.Add("gameView", new View(new FloatRect(0,0, 158, 200)));
+            Views["gameView"].Viewport = new FloatRect(0.25f, 0f, 0.5f, 1f);
+
             Player player = new Player(this);
+            player.TargetView = Views["gameView"];
             EntityManager.Add(player);
         }
 
@@ -36,12 +39,12 @@ namespace UniverseIntruders
             }
         }
 
-        public override void Draw(RenderWindow window)
+        public override void Draw()
         {
-            window.Clear(Color.Black);
+            SceneManager.Window.Clear(Color.Black);
             foreach (Entity entity in EntityManager.List())
             {
-                entity.Draw(window);
+                entity.Draw();
             }
         }
 

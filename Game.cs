@@ -21,13 +21,12 @@ namespace UniverseIntruders
             window.SetFramerateLimit(60);
             window.SetKeyRepeatEnabled(false);
 
-            gameScene = new GameScene();
-
             // Create a scene manager and give it access to the window's events
-            sceneManager = new SceneManager();
+            sceneManager = new SceneManager(window);
             window.KeyPressed += sceneManager.EventHandlers.KeyPressed;
             window.Closed += sceneManager.EventHandlers.Closed;
 
+            gameScene = new GameScene(sceneManager);
             int sceneId = sceneManager.Add(gameScene);
             sceneManager.Enter(sceneId);
         }
@@ -38,7 +37,7 @@ namespace UniverseIntruders
             {
                 window.DispatchEvents();
                 sceneManager.Update(1f / 60);
-                sceneManager.Draw(window);
+                sceneManager.Draw();
                 window.Display();
             }
         }

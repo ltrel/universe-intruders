@@ -14,7 +14,7 @@ namespace UniverseIntruders
     class Entity : Sprite
     {
         public WindowEventTable EventHandlers { get; protected set; } = new WindowEventTable();
-        public View TargetView { get; protected set; }
+        public View TargetView { get; set; }
         public Scene Scene { get; }
         public IntRect CollisionRect { get; set; }
         public CollisionTag CollisionTag { get; set; }
@@ -22,7 +22,7 @@ namespace UniverseIntruders
 
         public Entity(Texture texture, Scene scene) : base(texture)
         {
-            this.TargetView = scene.DefaultView;
+            this.TargetView = scene.SceneManager.Window.DefaultView;
             Scene = scene;
             Depth = 0;
         }
@@ -58,12 +58,12 @@ namespace UniverseIntruders
         //     return collidingEntity;
         // }
 
-        public void Draw(RenderWindow window)
+        public virtual void Draw()
         {
-            View originalView = window.GetView();
-            window.SetView(TargetView);
-            window.Draw(this);
-            window.SetView(originalView);
+            View originalView = Scene.SceneManager.Window.GetView();
+            Scene.SceneManager.Window.SetView(TargetView);
+            Scene.SceneManager.Window.Draw(this);
+            Scene.SceneManager.Window.SetView(originalView);
         }
 
         public void Destroy()

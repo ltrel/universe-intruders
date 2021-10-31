@@ -23,17 +23,17 @@ namespace UniverseIntruders
             CollisionTag = CollisionTag.Player;
             Depth = 0;
             MoveSpeed = 60f;
-            // Set position to the horizontal center of the screen near the bottom
-            Position = TargetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
-            Position = new Vector2f(Position.X, TargetView.Size.Y - 10);
             EventHandlers.KeyPressed += OnKeyDown;
             // Just use the bottom two rows of pixels for collision detection
             SetDefaultCollider();
             CollisionRect = new IntRect(CollisionRect.Left, CollisionRect.Top + 3, CollisionRect.Width, 2);
-            Initialize();
         }
         public override void Initialize()
         {
+            // Set position to the horizontal center of the screen near the bottom
+            Position = TargetView.Center - new Vector2f(TextureRect.Width / 2, TextureRect.Height / 2);
+            Position = new Vector2f(Position.X, TargetView.Size.Y - 10);
+
             shootClock = new Clock();
             base.Initialize();
         }
@@ -64,6 +64,7 @@ namespace UniverseIntruders
                         Scene.SoundManager.Play(shootSound);
                         Vector2f position = Position + new Vector2f(TextureRect.Width / 2, -10);
                         PlayerBullet bullet = new PlayerBullet(position, Scene);
+                        bullet.TargetView = TargetView;
                         Scene.EntityManager.Add(bullet);
                         shootClock.Restart();
                     }
